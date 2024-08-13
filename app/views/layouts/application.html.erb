@@ -26,7 +26,9 @@
         <%= link_to "Home", root_path, class: "text-sm font-semibold leading-6 text-gray-700 hover:text-green-900" %>
         <a href="#" class="text-sm font-semibold leading-6 text-gray-700 hover:text-green-900">Collections</a>
         <%= link_to "About", about_path, class: "text-sm font-semibold leading-6 text-gray-700 hover:text-green-900" %>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-700 hover:text-green-900">Log in <span aria-hidden="true">&rarr;</span></a>
+        <%= link_to login_path, class: "text-sm font-semibold leading-6 text-gray-700 hover:text-green-900" do %>
+          Log in <span aria-hidden="true">&rarr;</span>
+        <% end %>
       </div>
     </nav>
 

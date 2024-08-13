@@ -1,0 +1,20 @@
+<% provide(:title, "Login") %>
+<div class="mx-auto space-y-2">
+  <form>
+    <div class="space-y-3">
+        <h1 class="text-lg font-semibold leading-7 text-gray-900">Login</h1>
+        <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
+          <%= f.label :username, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <%= f.text_field :username %>
+
+          <%= f.label :password, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <%= f.password_field :password %>
+
+          <%= f.submit "Login", class: "block mx-auto rounded-md bg-green-800 px-28 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 cursor-pointer" %>
+        <% end %>
+      </div>
+  </form>
+  <div>
+    <p>New User? <%= link_to "Sign up now!", signup_path, class: "text-green-700" %></p>
+  </div>
+</div>
