@@ -7,7 +7,7 @@ class LibraryControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", root_title
     assert_select "a[href=?]", root_path, count: 2
     assert_select "a[href=?]", about_path
-    assert_select "a[href=?]", login_path
+    assert_select "a[href=?]", admin_path
   end
 
   test "should get about" do

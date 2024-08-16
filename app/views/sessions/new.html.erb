@@ -1,9 +1,9 @@
-<% provide(:title, "Login") %>
+<% provide(:title, "Admin") %>
 <div class="mx-auto space-y-2">
   <form>
     <div class="space-y-3">
         <h1 class="text-lg font-semibold leading-7 text-gray-900">Login</h1>
-        <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
+        <%= form_with(url: admin_path, scope: :session, local: true) do |f| %>
           <%= f.label :username, class: "block text-sm font-medium leading-6 text-gray-900" %>
           <%= f.text_field :username %>
 
@@ -14,7 +14,4 @@
         <% end %>
       </div>
   </form>
-  <div>
-    <p>New User? <%= link_to "Sign up now!", signup_path, class: "text-green-700" %></p>
-  </div>
 </div>
