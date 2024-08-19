@@ -12,26 +12,34 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-  <header class="bg-white">
-    <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-      <div class="flex lg:flex-1">
-        <%= link_to root_path, class: "-m-1.5 p-1.5" do %>
-          <span class="sr-only">Churchill Library</span>
-          <%= image_tag "logo.svg", alt: "Churchill Library Logo", class: "h-16 w-auto" %>
-        <% end %>
-      </div>
-      <!-- TODO Add dynamic active class based on helper like page title -->
-      <div class="hidden lg:flex lg:flex-1 lg:gap-x-12 lg:justify-end">
-        <%= link_to "Home", root_path, class: "text-sm font-semibold leading-6 text-gray-700 hover:text-green-900" %>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-700 hover:text-green-900">Collections</a>
-        <%= link_to "About", about_path, class: "text-sm font-semibold leading-6 text-gray-700 hover:text-green-900" %>
-        <%= link_to "Admin", admin_path, class: "text-sm font-semibold leading-6 text-gray-400 hover:text-green-900" %>
-      </div>
-    </nav>
+  <body class="bg-slate-100">
+    <header>
+      <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <div class="flex lg:flex-1">
+          <%= link_to root_path, class: "-m-1.5 p-1.5" do %>
+            <span class="sr-only">Churchill Library</span>
+            <%= image_tag "logo.svg", alt: "Churchill Library Logo", class: "h-16 w-auto" %>
+          <% end %>
+        </div>
+        <!-- TODO Add dynamic active class based on helper like page title -->
+        <div class="hidden lg:flex lg:flex-1 lg:gap-x-12 lg:justify-end">
+          <%= link_to "Home", root_path, class: "text-sm font-semibold leading-6 text-gray-700 hover:text-green-900" %>
+          <a href="#" class="text-sm font-semibold leading-6 text-gray-700 hover:text-green-900">Collections</a>
+          <%= link_to "About", about_path, class: "text-sm font-semibold leading-6 text-gray-700 hover:text-green-900" %>
+          <%= link_to "Admin", admin_path, class: "text-sm font-semibold leading-6 text-gray-400 hover:text-green-900" %>
+        </div>
+      </nav>
+    </header>
 
-    <main class="container mx-auto mt-28 px-5 flex">
+    <% flash.each do |type, msg| %>
+    <div class="bg-red-500 text-white xl:mx-24 lg:mx-16 md:mx-8 mx-4 my-1 p-2 rounded"><%= msg %></div>
+    <% end %>
+
+    <main class="container mx-auto mt-28 px-5 flex flex-col">
       <%= yield %>
     </main>
+    <aside class="mx-32 mt-16">
+      <%= debug(params) if Rails.env.development? %>
+    </aside>
   </body>
 </html>
