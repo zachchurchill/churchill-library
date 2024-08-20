@@ -31,9 +31,11 @@
       </nav>
     </header>
 
-    <% flash.each do |type, msg| %>
-    <div class="bg-red-500 text-white xl:mx-24 lg:mx-16 md:mx-8 mx-4 my-1 p-2 rounded"><%= msg %></div>
-    <% end %>
+    <div class="relative w-100 xl:mx-64 lg:mx-48 md:mx-32 mx-16">
+      <% flash.each do |type, msg| %>
+      <div class="absolute top-0 inset-x-0 width-100 bg-red-500/75 text-white my-1 p-2 rounded"><%= msg %></div>
+      <% end %>
+    </div>
 
     <main class="container mx-auto mt-28 px-5 flex flex-col">
       <%= yield %>
