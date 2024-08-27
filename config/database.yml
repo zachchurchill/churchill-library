@@ -23,4 +23,4 @@ test:
 production:
   <<: *default
   adapter: postgresql
-  database: churchill_library
+  url: <%= ENV["DATABASE_URL"] %>
