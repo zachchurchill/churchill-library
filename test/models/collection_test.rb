@@ -60,4 +60,20 @@ class CollectionTest < ActiveSupport::TestCase
     @book.genre = "a" * 51
     assert_not @book.valid?
   end
+
+  test "unique owners returns expected based on test fixtures " do
+    assert_equal 5, Collection.all.length # test fixtures
+    assert_equal 3, Collection.unique_owners.length
+    assert_includes Collection.unique_owners, "zach"
+    assert_includes Collection.unique_owners, "courtney"
+    assert_includes Collection.unique_owners, "penelope"
+  end
+
+  test "unique authors returns expected based on test fixtures " do
+    assert_equal 5, Collection.all.length # test fixtures
+    assert_equal 3, Collection.unique_authors.length
+    assert_includes Collection.unique_authors, "stephen king"
+    assert_includes Collection.unique_authors, "rebecca yarros"
+    assert_includes Collection.unique_authors, "dr. seuss"
+  end
 end

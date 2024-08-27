@@ -1,13 +1,31 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  owner: MyString
-  title: MyString
-  author: MyString
-  genre: MyString
+shining:
+  owner: zach
+  title: the shining
+  author: stephen king
+  genre: horror
 
-two:
-  owner: MyString
-  title: MyString
-  author: MyString
-  genre: MyString
+it:
+  owner: zach
+  title: it
+  author: stephen king
+  genre: horror
+
+fourthwing:
+  owner: courtney
+  title: fourth wing
+  author: rebecca yarros
+  genre: fantasy, romance
+
+ironflame:
+  owner: courtney
+  title: iron flame
+  author: rebecca yarros
+  genre: fantasy, romance
+
+greeneggs:
+  owner: penelope
+  title: green eggs & ham
+  author: dr. seuss
+  genre: childrens
