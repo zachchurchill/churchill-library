@@ -25,6 +25,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert flash.empty?
     assert_redirected_to root_path
     follow_redirect!
+    assert logged_in?
     assert_template "library/home"
     assert_select "a[href=?]", admin_path, count: 0
     assert_select "a[href=?]", logout_path
@@ -35,5 +36,21 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     post admin_path, params: { session: { username: @user.name, password: "wrong!" } }
     assert_template "sessions/new"
     assert_not flash.empty?
+    assert_not logged_in?
+  end
+
+  test "login with valid information followed by logout" do
+    get admin_path
+    post admin_path, params: { session: { username: @user.name, password: @expected_password } }
+    assert_redirected_to root_path
+    follow_redirect!
+    assert logged_in?
+    assert_select "a[href=?]", logout_path
+    get logout_path
+    assert_not logged_in?
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_select "a[href=?]", admin_path
+    assert_select "a[href=?]", logout_path, count: 0
   end
 end
