@@ -24,7 +24,7 @@
         <!-- TODO Add dynamic active class based on helper like page title -->
         <div class="hidden lg:flex lg:flex-1 lg:gap-x-12 lg:justify-end">
           <%= link_to "Home", root_path, class: "text-sm font-semibold leading-6 text-gray-700 hover:text-green-900" %>
-          <a href="#" class="text-sm font-semibold leading-6 text-gray-700 hover:text-green-900">Collections</a>
+          <%= link_to "Collections", collections_path, class: "text-sm font-semibold leading-6 text-gray-700 hover:text-green-900" %>
           <%= link_to "About", about_path, class: "text-sm font-semibold leading-6 text-gray-700 hover:text-green-900" %>
           <% if logged_in? %>
           <%= link_to "Logout", logout_path, method: :delete, class: "text-sm font-semibold leading-6 text-gray-400 hover:text-green-900" %>

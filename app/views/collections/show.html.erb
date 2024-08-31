@@ -1,0 +1,25 @@
+<% provide(:title, "Collections") %>
+<div class="mx-auto">
+  <% if @books.any? %>
+  <section id="top-matter">
+    <h1>Browse our collections</h1>
+    <p>The Churchill Library houses collections from all our family members. Explore our collections using the provided search and filters.</p>
+  </section>
+  <section id="search-and-filters">
+  </section>
+  <section id="collections-table">
+    <table>
+      <tr>
+        <th>Owner</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genres</th>
+      </tr>
+      <%= render @books %>
+    </table>
+    <%= will_paginate @books, size: 10 %>
+  </section>
+  <% elsif %>
+  <p>Coming soon...</p>
+  <% end %>
+</div>

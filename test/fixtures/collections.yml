@@ -29,3 +29,11 @@ greeneggs:
   title: green eggs & ham
   author: dr. seuss
   genres: childrens
+
+<% 50.times do |n| %>
+book_<%= n %>:
+  owner: system
+  title: book_<%= n %>
+  author: ERB
+  genres: horror
+<% end %>

@@ -50,18 +50,20 @@ class CollectionTest < ActiveSupport::TestCase
   end
 
   test "unique owners returns expected based on test fixtures " do
-    assert_equal 5, Collection.all.length # test fixtures
-    assert_equal 3, Collection.unique_owners.length
+    assert_equal 55, Collection.all.length # test fixtures
+    assert_equal 4, Collection.unique_owners.length
     assert_includes Collection.unique_owners, "zach"
     assert_includes Collection.unique_owners, "courtney"
     assert_includes Collection.unique_owners, "penelope"
+    assert_includes Collection.unique_owners, "system"
   end
 
   test "unique authors returns expected based on test fixtures " do
-    assert_equal 5, Collection.all.length # test fixtures
-    assert_equal 3, Collection.unique_authors.length
+    assert_equal 55, Collection.all.length # test fixtures
+    assert_equal 4, Collection.unique_authors.length
     assert_includes Collection.unique_authors, "stephen king"
     assert_includes Collection.unique_authors, "rebecca yarros"
     assert_includes Collection.unique_authors, "dr. seuss"
+    assert_includes Collection.unique_authors, "ERB"
   end
 end

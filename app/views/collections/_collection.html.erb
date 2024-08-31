@@ -1,0 +1,6 @@
+<tr id="collection-<%= collection.id %>" aria-label="book row">
+  <td><%= collection.owner %></td>
+  <td><%= collection.title %></td>
+  <td><%= collection.author %></td>
+  <td><%= collection.genres.pluck(:name).join(", ") %></td>
+</tr>
