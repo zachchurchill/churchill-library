@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+horror:
+  name: horror
+
+fantasy:
+  name: fantasy
+
+romance:
+  name: romance
+
+childrens:
+  name: childrens

@@ -10,15 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_27_113905) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_31_181037) do
   create_table "collections", force: :cascade do |t|
     t.string "owner"
     t.string "title"
     t.string "author"
-    t.string "genre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner"], name: "index_collections_on_owner"
+  end
+
+  create_table "collections_genres", id: false, force: :cascade do |t|
+    t.integer "collection_id"
+    t.integer "genre_id"
+    t.index ["collection_id"], name: "index_collections_genres_on_collection_id"
+    t.index ["genre_id"], name: "index_collections_genres_on_genre_id"
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

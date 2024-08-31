@@ -4,28 +4,28 @@ shining:
   owner: zach
   title: the shining
   author: stephen king
-  genre: horror
+  genres: horror
 
 it:
   owner: zach
   title: it
   author: stephen king
-  genre: horror
+  genres: horror
 
 fourthwing:
   owner: courtney
   title: fourth wing
   author: rebecca yarros
-  genre: fantasy, romance
+  genres: fantasy, romance
 
 ironflame:
   owner: courtney
   title: iron flame
   author: rebecca yarros
-  genre: fantasy, romance
+  genres: fantasy, romance
 
 greeneggs:
   owner: penelope
   title: green eggs & ham
   author: dr. seuss
-  genre: childrens
+  genres: childrens

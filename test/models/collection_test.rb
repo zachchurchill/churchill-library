@@ -2,7 +2,8 @@ require "test_helper"
 
 class CollectionTest < ActiveSupport::TestCase
   def setup
-    @book = Collection.new(owner: "librarian", title: "book", author: "itself", genre: "metafiction")
+    @book = Collection.new(owner: "librarian", title: "book", author: "itself")
+    @genre = @book.genres.build(name: "metafiction")
   end
 
   test "should be valid" do
@@ -45,19 +46,6 @@ class CollectionTest < ActiveSupport::TestCase
     assert_not @book.valid?
 
     @book.author = "a" * 101
-    assert_not @book.valid?
-  end
-
-  test "genre does not have to be present" do
-    @book.genre = nil
-    assert @book.valid?
-  end
-
-  test "genre should be >= 3 && <= 50 characters" do
-    @book.genre = "a" * 2
-    assert_not @book.valid?
-
-    @book.genre = "a" * 51
     assert_not @book.valid?
   end
 
