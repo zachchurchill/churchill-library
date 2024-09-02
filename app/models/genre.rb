@@ -4,4 +4,8 @@ class Genre < ApplicationRecord
     self.name = name.downcase
   end
   validates :name, length: { minimum: 3, maximum: 50 }
+
+  def self.unique_genres
+    Genre.pluck(:name).uniq
+  end
 end
