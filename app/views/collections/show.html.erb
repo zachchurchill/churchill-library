@@ -2,42 +2,58 @@
 <div class="mx-auto">
   <% if @books.any? %>
   <section id="top-matter">
-    <h1>Browse our collections</h1>
-    <p>The Churchill Library houses collections from all our family members. Explore our collections using the provided search and filters.</p>
+    <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Browse our collections</h1>
+    <p class="leading-snug text-slate-800">The Churchill Library houses collections from all our family members. Explore our collections using the provided search and filters.</p>
   </section>
-  <section id="search-and-filters">
-  <%= form_with(url: collections_path, method: :get, class: "relative") do |f| %>
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline absolute mt-4 ml-3">
-      <path d="M13 13L10.1 10.1M11.6667 6.33333C11.6667 9.27885 9.27885 11.6667 6.33333 11.6667C3.38781 11.6667 1 9.27885 1 6.33333C1 3.38781 3.38781 1 6.33333 1C9.27885 1 11.6667 3.38781 11.6667 6.33333Z" stroke="#1E1E1E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <%= f.search_field :title, placeholder: "Search by title...", class: "w-full pl-8 rounded-full" %>
-  <% end %>
-  <%= form_with(url: collections_path, method: :get, class: "flex md:flex-row flex-col justify-between") do |f| %>
-    <div class="w-full md:[&_select]:w-3/4 [&_select]:w-full [&_select]:rounded-lg">
-      <%= f.label :owner, class: "block text-sm font-medium leading-6 text-gray-900" %>
-      <%= f.collection_select :owner, Collection.unique_owners, :to_s, :titleize, prompt: "All owners", class: "w-full rounded-lg" %>
+  <section id="search-and-filters" class="mt-4">
+    <div class="flex md:flex-row flex-col justify-between">
+    <%= form_with(url: collections_path, method: :get, class: "basis-full md:basis-2/3 relative") do |f| %>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline absolute mt-4 ml-3">
+        <path d="M13 13L10.1 10.1M11.6667 6.33333C11.6667 9.27885 9.27885 11.6667 6.33333 11.6667C3.38781 11.6667 1 9.27885 1 6.33333C1 3.38781 3.38781 1 6.33333 1C9.27885 1 11.6667 3.38781 11.6667 6.33333Z" stroke="#1E1E1E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <%= f.search_field :title, placeholder: "Search by title...", class: "w-full pl-8 rounded-full border border-solid border-slate-300" %>
+    <% end %>
+      <% if logged_in? %>
+      <button class="basis-full md:basis-1/4 mt-2 md:mt-0 py-2 md:py-0 border border-solid rounded-md text-sm font-semibold text-slate-600 shadow-sm border-green-600 hover:border-green-800 cursor-pointer disabled:cursor-not-allowed disabled:opacity-75 disabled:hover:border-green-600" disabled>Chat with Librarian</button>
+      <% else %>
+      <button class="basis-full md:basis-1/4 mt-2 md:mt-0 py-2 md:py-0 rounded-md text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-green-800" disabled>Chat with Librarian</button>
+      <% end %>
     </div>
-    <div class="w-full md:[&_select]:w-3/4 [&_select]:w-full">
-      <%= f.label :author, class: "block text-sm font-medium leading-6 text-gray-900" %>
-      <%= f.collection_select :author, Collection.unique_authors, :to_s, :titleize, prompt: "All authors", class: "w-full rounded-lg" %>
+    <div class="mt-4 flex flex-row justify-between">
+    <%= form_with(url: collections_path, method: :get, class: "basis-full md:basis-2/3 flex md:flex-row flex-col") do |f| %>
+      <div class="w-full mr-0 md:mr-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
+        <%= f.label :owner, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
+        <%= f.collection_select :owner, Collection.unique_owners, :to_s, :titleize, prompt: "All owners" %>
+      </div>
+      <div class="w-full mx-0 md:mx-2 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
+        <%= f.label :author, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
+        <%= f.collection_select :author, Collection.unique_authors, :to_s, :titleize, prompt: "All authors" %>
+      </div>
+      <div class="w-full ml-0 md:ml-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
+        <%= f.label :genre, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
+        <%= f.collection_select :genre, Genre.unique_genres, :to_s, :titleize, prompt: "All genres" %>
+      </div>
+    <% end %>
+    <% if logged_in? %>
+    <button class="basis-full md:basis-1/4 h-10 self-end p-1 rounded-md text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-green-800">Add Book</button>
+    <% end %>
     </div>
-    <div class="w-full md:[&_select]:w-3/4 [&_select]:w-full">
-      <%= f.label :genre, class: "block text-sm font-medium leading-6 text-gray-900" %>
-      <%= f.collection_select :genre, Genre.unique_genres, :to_s, :titleize, prompt: "All genres", class: "w-full rounded-lg" %>
-    </div>
-  <% end %>
   </section>
-  <section id="collections-table">
-    <table>
-      <tr>
-        <th>Owner</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Genres</th>
-      </tr>
+  <section id="collections-table" class="mt-4">
+    <table class="w-full table-auto md:table-fixed">
+      <thead>
+        <tr class="border-b border-solid border-slate-200 text-base md:text-lg text-left text-slate-800">
+          <th class="w-2/12 font-medium text-inherit">Owner</th>
+          <th class="w-4/12 font-medium text-inherit">Title</th>
+          <th class="w-3/12 font-medium text-inherit">Author</th>
+          <th class="w-3/12 font-medium text-inherit">Genres</th>
+        </tr>
+      </thead>
+      <tbody class="text-sm md:text-base font-light text-slate-800 space-y-4">
       <%= render @books %>
+      </tbody>
     </table>
-    <%= will_paginate @books, size: 10 %>
+    <%= will_paginate @books, size: 10, class: "mt-2 flex flex-row justify-center text-sm md:text-base text-slate-600 *:mx-2 [&_em]:text-white [&_em]:bg-slate-900 [&_em]:px-2 [&_em]:rounded-lg [&_span]:cursor-not-allowed [&_span]:text-slate-400" %>
   </section>
   <% elsif %>
   <p>Coming soon...</p>
