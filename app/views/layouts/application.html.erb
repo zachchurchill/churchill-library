@@ -37,7 +37,11 @@
     <aside id="notifications" class="relative w-100 xl:mx-64 lg:mx-48 md:mx-32 mx-16">
       <% flash.each do |type, msg| %>
         <div
-          class="absolute top-0 inset-x-0 width-100 bg-red-500/75 text-white my-1 p-2 rounded opacity-100 animate-fade"
+          <% if type == "danger" %>
+          class="absolute top-0 inset-x-0 width-100 bg-red-600/75 text-white my-1 p-2 rounded opacity-100 animate-fade"
+          <% else %>
+          class="absolute top-0 inset-x-0 width-100 bg-indigo-600/75 text-white my-1 p-2 rounded opacity-100 animate-fade"
+          <% end %>
           data-controller="removals"
           data-action="animationend->removals#remove"
           >
