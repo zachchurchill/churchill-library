@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       redirect_to collections_path, notice: "Welcome back, #{user.name.titlecase}!"
     else
       flash.now[:danger] = "Invalid username/password combination"
-      render "new"
+      render "new", status: :unprocessable_entity
     end
   end
 
