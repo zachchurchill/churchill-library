@@ -22,7 +22,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     get admin_path
     assert_template "sessions/new"
     post admin_path, params: { session: { username: @user.name, password: @expected_password } }
-    assert flash.empty?
+    assert_not flash.empty?
     assert_redirected_to collections_path
     follow_redirect!
     assert logged_in?
