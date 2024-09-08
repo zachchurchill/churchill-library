@@ -34,6 +34,6 @@ greeneggs:
 book_<%= n %>:
   owner: system
   title: book_<%= n %>
-  author: ERB
+  author: erb
   genres: horror
 <% end %>

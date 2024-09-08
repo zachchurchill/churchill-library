@@ -64,6 +64,6 @@ class CollectionTest < ActiveSupport::TestCase
     assert_includes Collection.unique_authors, "stephen king"
     assert_includes Collection.unique_authors, "rebecca yarros"
     assert_includes Collection.unique_authors, "dr. seuss"
-    assert_includes Collection.unique_authors, "ERB"
+    assert_includes Collection.unique_authors, "erb"
   end
 end

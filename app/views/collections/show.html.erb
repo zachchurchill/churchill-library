@@ -23,15 +23,15 @@
     <%= form_with(url: collections_path, method: :get, class: "basis-full md:basis-2/3 flex md:flex-row flex-col") do |f| %>
       <div class="w-full mr-0 md:mr-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
         <%= f.label :owner, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-        <%= f.collection_select :owner, Collection.unique_owners, :to_s, :titleize, prompt: "All owners" %>
+        <%= f.collection_select :owner, Collection.unique_owners, :to_s, :titleize, { prompt: "All owners" }, { onchange: "this.form.requestSubmit()" } %>
       </div>
       <div class="w-full mx-0 md:mx-2 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
         <%= f.label :author, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-        <%= f.collection_select :author, Collection.unique_authors, :to_s, :titleize, prompt: "All authors" %>
+        <%= f.collection_select :author, Collection.unique_authors, :to_s, :titleize, { prompt: "All authors" }, { onchange: "this.form.requestSubmit()" } %>
       </div>
       <div class="w-full ml-0 md:ml-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
         <%= f.label :genre, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-        <%= f.collection_select :genre, Genre.unique_genres, :to_s, :titleize, prompt: "All genres" %>
+        <%= f.collection_select :genre, Genre.unique_genres, :to_s, :titleize, { prompt: "All genres" }, { onchange: "this.form.requestSubmit()" } %>
       </div>
     <% end %>
     <% if logged_in? %>
