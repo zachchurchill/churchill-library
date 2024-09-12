@@ -1,6 +1,5 @@
 <% provide(:title, "Collections") %>
 <div class="mx-auto">
-  <% if @books.any? %>
   <section id="top-matter">
     <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Browse our collections</h1>
     <p class="leading-snug text-slate-800">The Churchill Library houses collections from all our family members. Explore our collections using the provided search and filters.</p>
@@ -23,15 +22,15 @@
     <%= form_with(url: collections_path, method: :get, class: "basis-full md:basis-2/3 flex md:flex-row flex-col") do |f| %>
       <div class="w-full mr-0 md:mr-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
         <%= f.label :owner, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-        <%= f.collection_select :owner, Collection.unique_owners, :to_s, :titleize, { prompt: "All owners" }, { onchange: "this.form.requestSubmit()" } %>
+        <%= f.collection_select :owner, Collection.unique_owners, :to_s, :titleize, { include_blank: "All owners", selected: params[:owner] }, { onchange: "this.form.requestSubmit()" } %>
       </div>
       <div class="w-full mx-0 md:mx-2 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
         <%= f.label :author, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-        <%= f.collection_select :author, Collection.unique_authors, :to_s, :titleize, { prompt: "All authors" }, { onchange: "this.form.requestSubmit()" } %>
+        <%= f.collection_select :author, Collection.unique_authors, :to_s, :titleize, { include_blank: "All authors", selected: params[:author] }, { onchange: "this.form.requestSubmit()" } %>
       </div>
       <div class="w-full ml-0 md:ml-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
         <%= f.label :genre, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-        <%= f.collection_select :genre, Genre.unique_genres, :to_s, :titleize, { prompt: "All genres" }, { onchange: "this.form.requestSubmit()" } %>
+        <%= f.collection_select :genre, Genre.unique_genres, :to_s, :titleize, { include_blank: "All genres", selected: params[:genre] }, { onchange: "this.form.requestSubmit()" } %>
       </div>
     <% end %>
     <% if logged_in? %>
@@ -55,7 +54,4 @@
     </table>
     <%= will_paginate @books, size: 10, class: "mt-2 flex flex-row justify-center text-sm md:text-base text-slate-600 *:mx-2 [&_em]:text-white [&_em]:bg-slate-900 [&_em]:px-2 [&_em]:rounded-lg [&_span]:cursor-not-allowed [&_span]:text-slate-400" %>
   </section>
-  <% elsif %>
-  <p>Coming soon...</p>
-  <% end %>
 </div>
