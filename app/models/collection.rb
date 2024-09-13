@@ -1,9 +1,9 @@
 class Collection < ApplicationRecord
   has_and_belongs_to_many :genres
   before_save do
-    self.owner = name.downcase
-    self.title = name.downcase
-    self.author = name.downcase
+    self.owner = owner.downcase
+    self.title = title.downcase
+    self.author = author.downcase
   end
   validates :owner, presence: true, length: { minimum: 3, maximum: 50 }
   validates :title, presence: true, length: { minimum: 3, maximum: 200 }
