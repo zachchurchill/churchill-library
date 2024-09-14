@@ -34,7 +34,7 @@
       </nav>
     </header>
 
-    <aside id="notifications" class="relative w-100 xl:mx-64 lg:mx-48 md:mx-32 mx-16">
+    <aside id="notifications" class="container max-w-screen-lg mx-auto relative">
       <% flash.each do |type, msg| %>
         <div
           <% if type == "danger" %>
@@ -50,11 +50,11 @@
       <% end %>
     </aside>
 
-    <main class="container mx-auto mt-4 md:mt-8 lg:mt-12 px-5 flex flex-col">
+    <main class="container max-w-screen-xl mx-auto mb-16 md:mb-8 mt-4 md:mt-8 lg:mt-12 px-5 flex flex-col">
       <%= yield %>
     </main>
 
-    <% if Rails.env.development? %>
+    <% if Rails.env.development? && false %>
     <aside class="mx-32 mt-16" data-turbo="false">
       <%= debug(params) %>
     </aside>

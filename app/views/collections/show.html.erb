@@ -27,14 +27,14 @@
         </div>
       </div>
     <% end %>
-    <div class="basis-1/4 md:max-w-64 flex flex-row md:flex-col justify-end gap-2">
+    <div class="basis-1/4 min-h-12 md:max-w-64 flex flex-row md:flex-col justify-end gap-2">
       <% if logged_in? %>
-      <button class="basis-full py-2 md:py-0 border border-solid rounded-md text-sm font-semibold text-slate-600 shadow-sm border-green-600 hover:border-green-800 cursor-pointer disabled:cursor-not-allowed disabled:opacity-75 disabled:hover:border-green-600" disabled>Chat with Librarian</button>
+      <button class="basis-full py-2 md:py-0 border border-solid rounded-md text-xs md:text-sm font-semibold text-slate-600 shadow-sm border-green-600 hover:border-green-800 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-green-600" disabled>Chat with Librarian</button>
       <% else %>
-      <button class="basis-full md:basis-12 py-2 md:py-0 rounded-md text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-green-800" disabled>Chat with Librarian</button>
+      <button class="basis-full md:basis-12 py-2 md:py-0 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-800" disabled>Chat with Librarian</button>
       <% end %>
       <% if logged_in? %>
-      <button class="basis-full h-10 p-1 rounded-md text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-green-800">Add Book</button>
+      <button class="basis-full p-1 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-green-800">Add Book</button>
       <% end %>
     </div>
   </section>
@@ -48,7 +48,7 @@
           <th class="w-3/12 font-medium text-inherit">Genres</th>
         </tr>
       </thead>
-      <tbody class="text-sm md:text-base font-light text-slate-800 space-y-4">
+      <tbody class="font-light text-slate-800 space-y-4">
       <%= render @books %>
       </tbody>
     </table>
