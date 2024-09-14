@@ -1,0 +1,31 @@
+<% provide(:title, "Add Book") %>
+<div class="mx-auto">
+  <section id="top-matter">
+    <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Add a book to the Collections</h1>
+    <p class="leading-snug text-slate-800">Great! I can't wait to see what book you add to the Collections.</p>
+  </section>
+  <section id="add-book" class="mt-4">
+    <%= form_with(url: book_path, method: :post, class: "flex flex-col justify-between gap-2") do |f| %>
+      <div>
+        <%= f.label :owner, class: "block text-sm font-medium leading-6 text-gray-900" %>
+        <%= f.text_field :owner, class: "w-full border border-solid border-slate-300 rounded-md" %>
+      </div>
+      <div>
+        <%= f.label :title, class: "block text-sm font-medium leading-6 text-gray-900" %>
+        <%= f.text_area :title, class: "w-full border border-solid border-slate-300 rounded-md" %>
+      </div>
+      <div>
+        <%= f.label :author, class: "block text-sm font-medium leading-6 text-gray-900" %>
+        <%= f.text_field :author, class: "w-full border border-solid border-slate-300 rounded-md" %>
+      </div>
+      <div>
+        <%= f.label :genres, class: "block text-sm font-medium leading-6 text-gray-900" %>
+        <%= f.text_field :genres, class: "w-full border border-solid border-slate-300 rounded-md" %>
+      </div>
+      <div class="mt-4 flex flex-col md:flex-row justify-between gap-2 md:gap-4">
+        <%= link_to "Cancel", collections_path, class: "basis-full min-h-10 p-1 rounded-md text-xs md:text-sm font-semibold text-gray-800 shadow-sm bg-gray-200 hover:bg-gray-300 cursor-pointer content-center text-center" %>
+        <%= f.submit "Save", class: "basis-full min-h-10 p-1 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer content-center text-center" %>
+      </div>
+    <% end %>
+  </section>
+</div>
