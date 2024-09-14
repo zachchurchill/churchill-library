@@ -29,12 +29,12 @@
     <% end %>
     <div class="basis-1/4 min-h-12 md:max-w-64 flex flex-row md:flex-col justify-end gap-2">
       <% if logged_in? %>
-      <button class="basis-full py-2 md:py-0 border border-solid rounded-md text-xs md:text-sm font-semibold text-slate-600 shadow-sm border-green-600 hover:border-green-800 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-green-600" disabled>Chat with Librarian</button>
+      <button id="ai-chat" class="basis-full py-2 md:py-0 border border-solid rounded-md text-xs md:text-sm font-semibold text-slate-600 shadow-sm border-green-600 hover:border-green-800 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-green-600" disabled>Chat with Librarian</button>
       <% else %>
-      <button class="basis-full md:basis-12 py-2 md:py-0 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-800" disabled>Chat with Librarian</button>
+      <button id="ai-chat" class="basis-full md:basis-12 py-2 md:py-0 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-800" disabled>Chat with Librarian</button>
       <% end %>
       <% if logged_in? %>
-      <button class="basis-full p-1 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-green-800">Add Book</button>
+      <%= link_to "Add Book", book_path, class: "basis-full p-1 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer content-center text-center" %>
       <% end %>
     </div>
   </section>

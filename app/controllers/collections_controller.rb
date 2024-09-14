@@ -8,4 +8,7 @@ class CollectionsController < ApplicationController
     @books = @books.where(author: params[:author]) if params[:author].present?
     @books = @books.where.associated(:genres).where(genres: { name: params[:genre] }) if params[:genre].present?
   end
+
+  def add
+  end
 end
