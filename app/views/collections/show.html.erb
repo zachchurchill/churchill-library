@@ -10,18 +10,18 @@
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline absolute mt-4 ml-3">
           <path d="M13 13L10.1 10.1M11.6667 6.33333C11.6667 9.27885 9.27885 11.6667 6.33333 11.6667C3.38781 11.6667 1 9.27885 1 6.33333C1 3.38781 3.38781 1 6.33333 1C9.27885 1 11.6667 3.38781 11.6667 6.33333Z" stroke="#1E1E1E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <%= f.search_field :title, placeholder: "Search by title...", value: params[:title], class: "w-full pl-8 rounded-full border border-solid border-slate-300" %>
+        <%= f.search_field :title, placeholder: "Search by title...", value: params[:title], class: "w-full pl-8 rounded-full border border-solid border-slate-200 focus:border-transparent focus:shadow-none" %>
       </div>
       <div class="flex md:flex-row flex-col">
-        <div class="w-full mr-0 md:mr-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
+        <div class="w-full mr-0 md:mr-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-200">
           <%= f.label :owner, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
           <%= f.collection_select :owner, Collection.unique_owners, :to_s, :titleize, { include_blank: "All owners", selected: params[:owner] }, { onchange: "this.form.requestSubmit()" } %>
         </div>
-        <div class="w-full mx-0 md:mx-2 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
+        <div class="w-full mx-0 md:mx-2 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-200">
           <%= f.label :author, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
           <%= f.collection_select :author, Collection.unique_authors, :to_s, :titleize, { include_blank: "All authors", selected: params[:author] }, { onchange: "this.form.requestSubmit()" } %>
         </div>
-        <div class="w-full ml-0 md:ml-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-300">
+        <div class="w-full ml-0 md:ml-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-200">
           <%= f.label :genre, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
           <%= f.collection_select :genre, Genre.unique_genres, :to_s, :titleize, { include_blank: "All genres", selected: params[:genre] }, { onchange: "this.form.requestSubmit()" } %>
         </div>

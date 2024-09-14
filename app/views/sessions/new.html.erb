@@ -4,11 +4,11 @@
   <%= form_with(url: admin_path, scope: :session, local: true, class: "mt-4 flex flex-col gap-4") do |f| %>
     <div>
       <%= f.label :username, class: "block text-sm font-medium leading-6 text-gray-900" %>
-      <%= f.text_field :username, class: "w-full border border-solid border-slate-300 rounded-md" %>
+      <%= f.text_field :username, class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
     </div>
     <div>
       <%= f.label :password, class: "block text-sm font-medium leading-6 text-gray-900" %>
-      <%= f.password_field :password, class: "w-full border border-solid border-slate-300 rounded-md" %>
+      <%= f.password_field :password, class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
     </div>
     <%= f.submit "Login", class: "block min-h-11 rounded-md bg-green-800 px-28 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 cursor-pointer" %>
   <% end %>
