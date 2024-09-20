@@ -11,4 +11,16 @@ class CollectionsController < ApplicationController
 
   def add
   end
+
+  def create
+    genres = params[:genres].split(",").map { |genre| Genre.create(name: genre.strip) }
+    book = Collection.create(
+      owner: params[:owner],
+      title: params[:title],
+      author: params[:author]
+    )
+    genres.each(&:save!)
+    book.genres = genres
+    book.save!
+  end
 end

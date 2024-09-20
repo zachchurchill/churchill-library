@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "/", to: "library#home"
   get "/collections", to: "collections#show"
   get "/book", to: "collections#add"
+  post "/book", to: "collections#create"
   get "/admin", to: "sessions#new"
   post "/admin", to: "sessions#create"
   get "/logout", to: "sessions#delete"
