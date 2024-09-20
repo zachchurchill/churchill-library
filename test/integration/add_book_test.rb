@@ -30,6 +30,7 @@ class AddBookTest < ActionDispatch::IntegrationTest
       post book_path, params: new_book
     end
     assert_redirected_to admin_path
+    assert_not flash.empty?
   end
 
   private

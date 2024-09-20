@@ -14,7 +14,7 @@ module SessionsHelper
   end
 
   def authenticate_user
-    redirect_to admin_path unless logged_in?
+    redirect_to(admin_path, danger: "Must be logged in to add books") unless logged_in?
   end
 
   def log_out
