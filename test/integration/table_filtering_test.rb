@@ -39,6 +39,27 @@ class TableFilteringTest < ActionDispatch::IntegrationTest
     assert_select_option "genre", "childrens", 1
   end
 
+  test "search is case insensitive" do
+    get collections_path
+    assert_select "input[id='title']"
+    get collections_path, params: { "title": "fourth" }
+    assert_select "tr[aria-label='book row']"
+
+    get collections_path, params: { "title": "" }
+    assert_select "tr[aria-label='book row']", @page_size
+
+    get collections_path, params: { "title": "Fourth" }
+    assert_select "tr[aria-label='book row']"
+  end
+
+  test "search and filters work together to filter" do
+    get collections_path, params: { "title": "ng" }
+    assert_select "tr[aria-label='book row']", count: 2
+
+    get collections_path, params: { "title": "ng", "owner": "zach" }
+    assert_select "tr[aria-label='book row']"
+  end
+
   private
 
   def assert_select_option(select_id, option, count)
