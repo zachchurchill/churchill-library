@@ -1,4 +1,8 @@
 class CollectionsController < ApplicationController
+  include SessionsHelper
+
+  before_action :authenticate_user, except: [:show]
+
   def show
     @books = Collection.paginate(page: params[:page], per_page: 10)
 
@@ -15,12 +19,13 @@ class CollectionsController < ApplicationController
   def create
     genres = params[:genres].split(",").map { |genre| Genre.create(name: genre.strip) }
     book = Collection.create(
-      owner: params[:owner],
-      title: params[:title],
-      author: params[:author]
+      owner: params[:owner].strip,
+      title: params[:title].strip,
+      author: params[:author].strip
     )
     genres.each(&:save!)
     book.genres = genres
     book.save!
+    redirect_to collections_path, notice: "\"#{book.title}\" has been added"
   end
 end

@@ -19,5 +19,10 @@ module ActiveSupport
     def logged_in?
       !session[:user_id].nil?
     end
+
+    # Removes user from session
+    def log_out
+      session.delete(:user_id)
+    end
   end
 end

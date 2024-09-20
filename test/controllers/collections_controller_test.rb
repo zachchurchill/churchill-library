@@ -1,6 +1,11 @@
 require "test_helper"
 
 class CollectionsControllerTest < ActionDispatch::IntegrationTest
+  def setup
+    @expected_password = "foobar123!"
+    @user = users(:librarian)
+  end
+
   test "should get show" do
     get collections_path
     assert_response :success
@@ -8,12 +13,14 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get add" do
+    login
     get book_path
     assert_response :success
     assert_select "title", "Add Book | #{root_title}"
   end
 
   test "correctly adds book upon page submission" do
+    login
     genre = generate_random_string(8)
     new_book = {
       owner: generate_random_string(5),
@@ -48,5 +55,11 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
   def generate_random_string(length)
     alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
     (1..length).map { alphabet.sample }.join
+  end
+
+  def login
+    get admin_path
+    post admin_path, params: { session: { username: @user.name, password: @expected_password } }
+    assert logged_in?
   end
 end
