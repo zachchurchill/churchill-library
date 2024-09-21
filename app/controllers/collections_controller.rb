@@ -4,6 +4,9 @@ class CollectionsController < ApplicationController
   before_action :authenticate_user, except: [:show]
 
   def show
+    @owners = Collection.unique_owners
+    @authors = Collection.unique_authors
+    @genres = Genre.unique_genres
     @books = Collection.paginate(page: params[:page], per_page: 10)
 
     # Filter based on search & selectors, allowing for multiple filters
