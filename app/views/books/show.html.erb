@@ -13,17 +13,17 @@
         <%= f.search_field :title, placeholder: "Search by title...", value: params[:title], class: "w-full pl-8 rounded-full border border-solid border-slate-200 focus:border-transparent focus:shadow-none" %>
       </div>
       <div class="flex md:flex-row flex-col">
-        <div class="w-full mr-0 md:mr-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-200">
+        <div class="w-full mr-0 md:mr-3">
           <%= f.label :owner, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-          <%= select_tag :owner, options_from_collection_for_select(@owners, :id, :name, @owner&.id), include_blank: "All owners", onchange: "this.form.requestSubmit()" %>
+          <%= select_tag :owner, options_from_collection_for_select(@owners, :id, :name, @owner&.id), include_blank: "All Owners", onchange: "this.form.requestSubmit()", class: "w-full rounded-lg border border-solid border-slate-200" %>
         </div>
-        <div class="w-full mx-0 md:mx-2 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-200">
+        <div class="w-full mx-0 md:mx-2">
           <%= f.label :author, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-          <%= select_tag :author, options_from_collection_for_select(@authors, :id, :name, @author&.id), include_blank: "All authors", onchange: "this.form.requestSubmit()" %>
+          <%= select_tag :author, options_from_collection_for_select(@authors, :id, :name, @author&.id), include_blank: "All Authors", onchange: "this.form.requestSubmit()", class: "w-full rounded-lg border border-solid border-slate-200" %>
         </div>
-        <div class="w-full ml-0 md:ml-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-200">
+        <div class="w-full ml-0 md:ml-3">
           <%= f.label :genre, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-          <%= select_tag :genre, options_from_collection_for_select(@genres, :id, :name, @genre&.id), include_blank: "All genres", onchange: "this.form.requestSubmit()" %>
+          <%= select_tag :genre, options_from_collection_for_select(@genres, :id, :name, @genre&.id), include_blank: "All Genres", onchange: "this.form.requestSubmit()", class: "w-full rounded-lg border border-solid border-slate-200" %>
         </div>
       </div>
     <% end %>
