@@ -24,11 +24,18 @@ class BooksController < ApplicationController
 
   def create
     book = Book.new(title: params[:title].strip)
-    book.create_owner(name: params[:owner].strip)
-    book.create_author(name: params[:author].strip)
-    genres = params[:genres].split(",").map { |genre| Genre.create(name: genre.strip) }
-    book.genres = genres
-    book.save
-    redirect_to books_path, notice: "\"#{book.title}\" has been added"
+    book.owner = Owner.find_by(name: params[:owner].strip)
+    book.create_owner(name: params[:owner].strip) if book.owner.nil?
+    book.author = Author.find_by(name: params[:author].strip)
+    book.create_author(name: params[:author].strip) if book.author.nil?
+    book.genres = params[:genres].split(",").map(&:strip).map { |genre|
+      if Genre.where(name: genre).exists?
+        Genre.find_by(name: genre)
+      else
+        Genre.create(name: genre)
+      end
+    }
+    book.save!
+    redirect_to books_path, notice: "\"#{book.title.titleize}\" has been added"
   end
 end
