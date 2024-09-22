@@ -1,6 +1,0 @@
-<tr id="collection-<%= collection.id %>" aria-label="book row" class="text-inherit my-2">
-  <td class="pb-2"><%= collection.owner.titleize %></td>
-  <td class="pb-2"><%= collection.title.titleize %></td>
-  <td class="pb-2"><%= collection.author.titleize %></td>
-  <td class="pb-2"><%= collection.genres.pluck(:name).map(&:titleize).join(", ") %></td>
-</tr>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_21_191917) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_22_015420) do
   create_table "authors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -32,22 +32,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_21_191917) do
     t.integer "genre_id"
     t.index ["book_id"], name: "index_books_genres_on_book_id"
     t.index ["genre_id"], name: "index_books_genres_on_genre_id"
-  end
-
-  create_table "collections", force: :cascade do |t|
-    t.string "owner"
-    t.string "title"
-    t.string "author"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["owner"], name: "index_collections_on_owner"
-  end
-
-  create_table "collections_genres", id: false, force: :cascade do |t|
-    t.integer "collection_id"
-    t.integer "genre_id"
-    t.index ["collection_id"], name: "index_collections_genres_on_collection_id"
-    t.index ["genre_id"], name: "index_collections_genres_on_genre_id"
   end
 
   create_table "genres", force: :cascade do |t|

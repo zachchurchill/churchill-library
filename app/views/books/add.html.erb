@@ -23,7 +23,7 @@
         <%= f.text_field :genres, class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
       </div>
       <div class="mt-4 flex flex-col md:flex-row justify-between gap-2 md:gap-4">
-        <%= link_to "Cancel", collections_path, class: "basis-full min-h-11 p-1 rounded-md text-xs md:text-sm font-semibold text-gray-800 shadow-sm bg-gray-300 hover:bg-gray-400 cursor-pointer content-center text-center" %>
+        <%= link_to "Cancel", books_path, class: "basis-full min-h-11 p-1 rounded-md text-xs md:text-sm font-semibold text-gray-800 shadow-sm bg-gray-300 hover:bg-gray-400 cursor-pointer content-center text-center" %>
         <%= f.submit "Save", class: "basis-full min-h-11 p-1 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer content-center text-center" %>
       </div>
     <% end %>

@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   root "library#home"
 
   get "/", to: "library#home"
-  get "/collections", to: "collections#show"
-  get "/book", to: "collections#add"
-  post "/book", to: "collections#create"
+  get "/books", to: "books#show"
+  get "/book", to: "books#add"
+  post "/book", to: "books#create"
   get "/admin", to: "sessions#new"
   post "/admin", to: "sessions#create"
   get "/logout", to: "sessions#delete"

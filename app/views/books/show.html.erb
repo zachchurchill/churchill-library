@@ -1,11 +1,11 @@
 <% provide(:title, "Collections") %>
 <div class="mx-auto">
   <section id="top-matter">
-    <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Browse our collections</h1>
-    <p class="leading-snug text-slate-800">The Churchill Library houses collections from all our family members. Explore our collections using the provided search and filters.</p>
+    <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Browse our books</h1>
+    <p class="leading-snug text-slate-800">The Churchill Library houses books from all our family members. Explore our books using the provided search and filters.</p>
   </section>
   <section id="search-and-filters" class="mt-4 flex flex-col md:flex-row justify-between gap-4">
-    <%= form_with(url: collections_path, method: :get, class: "basis-3/4 flex flex-col justify-between gap-2") do |f| %>
+    <%= form_with(url: books_path, method: :get, class: "basis-3/4 flex flex-col justify-between gap-2") do |f| %>
       <div class="relative">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline absolute mt-4 ml-3">
           <path d="M13 13L10.1 10.1M11.6667 6.33333C11.6667 9.27885 9.27885 11.6667 6.33333 11.6667C3.38781 11.6667 1 9.27885 1 6.33333C1 3.38781 3.38781 1 6.33333 1C9.27885 1 11.6667 3.38781 11.6667 6.33333Z" stroke="#1E1E1E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -15,15 +15,15 @@
       <div class="flex md:flex-row flex-col">
         <div class="w-full mr-0 md:mr-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-200">
           <%= f.label :owner, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-          <%= select_tag :owner, options_from_collection_for_select(@owners, :downcase, :titleize, params[:owner]), include_blank: "All owners", onchange: "this.form.requestSubmit()" %>
+          <%= select_tag :owner, options_from_collection_for_select(@owners, :id, :name, @owner&.id), include_blank: "All owners", onchange: "this.form.requestSubmit()" %>
         </div>
         <div class="w-full mx-0 md:mx-2 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-200">
           <%= f.label :author, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-          <%= select_tag :author, options_from_collection_for_select(@authors, :downcase, :titleize, params[:author]), include_blank: "All authors", onchange: "this.form.requestSubmit()" %>
+          <%= select_tag :author, options_from_collection_for_select(@authors, :id, :name, @author&.id), include_blank: "All authors", onchange: "this.form.requestSubmit()" %>
         </div>
         <div class="w-full ml-0 md:ml-3 [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-solid [&_select]:border-slate-200">
           <%= f.label :genre, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-          <%= select_tag :genre, options_from_collection_for_select(@genres, :downcase, :titleize, params[:genre]), include_blank: "All genres", onchange: "this.form.requestSubmit()" %>
+          <%= select_tag :genre, options_from_collection_for_select(@genres, :id, :name, @genre&.id), include_blank: "All genres", onchange: "this.form.requestSubmit()" %>
         </div>
       </div>
     <% end %>
@@ -38,7 +38,7 @@
       <% end %>
     </div>
   </section>
-  <section id="collections-table" class="mt-4">
+  <section id="books-table" class="mt-4">
     <table class="w-full table-auto md:table-fixed">
       <thead>
         <tr class="border-b border-solid border-slate-200 text-base md:text-lg text-left text-slate-800">

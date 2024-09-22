@@ -1,13 +1,13 @@
 require "test_helper"
 
-class CollectionsControllerTest < ActionDispatch::IntegrationTest
+class BooksControllerTest < ActionDispatch::IntegrationTest
   def setup
     @expected_password = "foobar123!"
     @user = users(:librarian)
   end
 
   test "should get show" do
-    get collections_path
+    get books_path
     assert_response :success
     assert_select "title", "Collections | #{root_title}"
   end
@@ -29,10 +29,10 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
       genres: genre
     }
     post book_path, params: new_book
+    assert_not_nil Owner.find_by(name: new_book[:owner])
+    assert_not_nil Author.find_by(name: new_book[:author])
     assert_not_nil Genre.find_by(name: genre)
-    assert_not_nil Collection.find_by(owner: new_book[:owner])
-    assert_not_nil Collection.find_by(title: new_book[:title])
-    assert_not_nil Collection.find_by(author: new_book[:author])
+    assert_not_nil Book.find_by(title: new_book[:title])
 
     main_genre = generate_random_string(9)
     sub_genre = generate_random_string(7)
@@ -43,11 +43,11 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
       genres: "#{main_genre}, #{sub_genre}"
     }
     post book_path, params: another_book
+    assert_not_nil Owner.find_by(name: another_book[:owner])
+    assert_not_nil Author.find_by(name: another_book[:author])
     assert_not_nil Genre.find_by(name: main_genre)
     assert_not_nil Genre.find_by(name: sub_genre)
-    assert_not_nil Collection.find_by(owner: another_book[:owner])
-    assert_not_nil Collection.find_by(title: another_book[:title])
-    assert_not_nil Collection.find_by(author: another_book[:author])
+    assert_not_nil Book.find_by(title: another_book[:title])
   end
 
   private

@@ -6,41 +6,40 @@ class TableFilteringTest < ActionDispatch::IntegrationTest
   end
 
   test "selection of owner correctly filters table" do
-    get collections_path
+    get books_path
     assert_select "select[id='owner']"
     assert_select "select[id='owner']>option", count: 5
     assert_filter "owner", "", @page_size
-    assert_filter "owner", "zach", 2
-    assert_filter "owner", "courtney", 2
-    assert_filter "owner", "penelope", 1
-    assert_filter "owner", "system", @page_size
-    assert_filter "owner", "", @page_size
+    assert_filter "owner", owners(:zach).id, 2
+    assert_filter "owner", owners(:courtney).id, 2
+    assert_filter "owner", owners(:penelope).id, 1
+    assert_filter "owner", owners(:system).id, @page_size
   end
 
   test "selection of author correctly filters table" do
-    get collections_path
+    get books_path
     assert_select "select[id='author']"
     assert_select "select[id='author']>option", count: 5
     assert_filter "author", "", @page_size
-    assert_filter "author", "erb", @page_size
-    assert_filter "author", "rebecca yarros", 2
-    assert_filter "author", "stephen king", 2
-    assert_filter "author", "dr. seuss", 1
+    assert_filter "author", authors(:erb).id, @page_size
+    assert_filter "author", authors(:rebecca_yarros).id, 2
+    assert_filter "author", authors(:stephen_king).id, 2
+    assert_filter "author", authors(:dr_seuss).id, 1
   end
 
   test "selection of genre correctly filters table" do
-    get collections_path
+    get books_path
     assert_select "select[id='genre']"
     assert_select "select[id='genre']>option", count: 5
     assert_filter "genre", "", @page_size
-    assert_filter "genre", "horror", @page_size
-    assert_filter "genre", "fantasy", 2
-    assert_filter "genre", "romance", 2
-    assert_filter "genre", "childrens", 1
+    assert_filter "genre", genres(:horror).id, @page_size
+    assert_filter "genre", genres(:fantasy).id, 2
+    assert_filter "genre", genres(:romance).id, 2
+    assert_filter "genre", genres(:childrens).id, 1
   end
 
   test "search is case insensitive" do
-    get collections_path
+    get books_path
     assert_select "input[id='title']"
     assert_filter "title", "fourth", 1
     assert_filter "title", "", @page_size
@@ -50,14 +49,14 @@ class TableFilteringTest < ActionDispatch::IntegrationTest
   test "search and filters work together to filter" do
     assert_filter "title", "ng", 2
 
-    get collections_path, params: { "title": "ng", "owner": "zach" }
+    get books_path, params: { "title": "ng", "owner": owners(:zach).id }
     assert_select "tr[aria-label='book row']"
   end
 
   private
 
   def assert_filter(param, value, count)
-    get collections_path, params: { "#{param}": value }
+    get books_path, params: { "#{param}": value }
     assert_select "tr[aria-label='book row']", count
   end
 end
