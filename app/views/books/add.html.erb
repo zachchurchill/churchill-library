@@ -11,7 +11,7 @@
           <%= f.label :owner, class: "text-sm font-medium leading-6 text-gray-900" %>
           <span class="text-slate-400 font-light">*</span>
         </div>
-        <%= f.text_field :owner, required: true, list: "owner-options", autocomplete: "off", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
+        <%= f.text_field :owner, required: true, list: "owner-options", autocomplete: "off", placeholder: "Select existing or type new owner", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
         <datalist id="owner-options">
           <% Owner.all.each do |owner| %>
             <option value="<%= owner.name.titleize %>">
@@ -23,14 +23,14 @@
           <%= f.label :title, class: "text-sm font-medium leading-6 text-gray-900" %>
           <span class="text-slate-400 font-light">*</span>
         </div>
-        <%= f.text_area :title, required: true, autocomplete: "off", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
+        <%= f.text_area :title, required: true, autocomplete: "off", placeholder: "Provide book title", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
       </section>
       <section id="author-field">
         <div>
           <%= f.label :author, class: "text-sm font-medium leading-6 text-gray-900" %>
           <span class="text-slate-400 font-light">*</span>
         </div>
-        <%= f.text_field :author, required: true, list: "author-options", autocomplete: "off", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
+        <%= f.text_field :author, required: true, list: "author-options", autocomplete: "off", placeholder: "Select existing or type new author", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
         <datalist id="author-options">
           <% Author.all.each do |author| %>
             <option value="<%= author.name.titleize %>">
@@ -42,7 +42,7 @@
           <%= f.label :genres, class: "text-sm font-medium leading-6 text-gray-900" %>
           <span class="text-slate-400 font-light">*</span>
         </div>
-        <%= f.text_field :genres, required: true, list: "genre-options", autocomplete: "off", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
+        <%= f.text_field :genres, required: true, list: "genre-options", autocomplete: "off", placeholder: "Select existing or type new genre", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
         <datalist id="genre-options">
           <% Genre.all.each do |genre| %>
             <option value="<%= genre.name.titleize %>">
