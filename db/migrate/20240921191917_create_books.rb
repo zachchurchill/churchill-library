@@ -7,5 +7,10 @@ class CreateBooks < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+
+    create_table :books_genres, id: false do |t|
+      t.belongs_to :book
+      t.belongs_to :genre
+    end
   end
 end

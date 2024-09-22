@@ -7,8 +7,8 @@ module ActiveSupport
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
 
-    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-    fixtures :all
+    # Setup all fixtures in test/fixtures/*.yml in a specific order
+    fixtures :authors, :owners, :genres, :books
 
     # Add more helper methods to be used by all tests here...
     def root_title
