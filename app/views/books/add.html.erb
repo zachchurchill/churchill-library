@@ -14,7 +14,7 @@
         <%= f.text_field :owner, required: true, list: "owner-options", autocomplete: "off", placeholder: "Select existing or type new owner", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
         <datalist id="owner-options">
           <% Owner.all.each do |owner| %>
-            <option value="<%= owner.name.titleize %>">
+            <option value="<%= owner.name %>">
           <% end %>
         </datalist>
       </section>
@@ -33,7 +33,7 @@
         <%= f.text_field :author, required: true, list: "author-options", autocomplete: "off", placeholder: "Select existing or type new author", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
         <datalist id="author-options">
           <% Author.all.each do |author| %>
-            <option value="<%= author.name.titleize %>">
+            <option value="<%= author.name %>">
           <% end %>
         </datalist>
       </section>
@@ -45,7 +45,7 @@
         <%= f.text_field :genres, required: true, list: "genre-options", autocomplete: "off", placeholder: "Select existing or type new genre", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
         <datalist id="genre-options">
           <% Genre.all.each do |genre| %>
-            <option value="<%= genre.name.titleize %>">
+            <option value="<%= genre.name %>">
           <% end %>
         </datalist>
       </section>
