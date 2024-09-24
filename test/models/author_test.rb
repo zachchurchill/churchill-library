@@ -21,4 +21,11 @@ class AuthorTest < ActiveSupport::TestCase
     @author.name = "a" * 101
     assert_not @author.valid?
   end
+
+  test "hyphens should be preserved in titleized name" do
+    Author.create(name: "Mark Wilks-Coleman")
+    author = Author.find_by(name: "mark wilks-coleman")
+    assert_not_nil author
+    assert_equal "Mark Wilks-Coleman", author.name
+  end
 end

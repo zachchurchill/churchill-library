@@ -12,4 +12,11 @@ class GenreTest < ActiveSupport::TestCase
     @genre.name = "a" * 51
     assert_not @genre.valid?
   end
+
+  test "hyphens should be preserved in titleized name" do
+    Genre.create(name: "non-fiction")
+    genre = Genre.find_by(name: "non-fiction")
+    assert_not_nil genre
+    assert_equal "Non-Fiction", genre.name
+  end
 end

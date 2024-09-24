@@ -10,6 +10,6 @@ class Author < ApplicationRecord
   private
 
   def titleize_name
-    self.name = name.titleize
+    self.name = name.split("-").map(&:titleize).join("-")
   end
 end
