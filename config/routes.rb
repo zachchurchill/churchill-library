@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get "/books", to: "books#show"
   get "/book", to: "books#add"
   post "/book", to: "books#create"
+  get "/book/edit", to: "books#edit"
+  put "/book/edit", to: "books#update"
   get "/admin", to: "sessions#new"
   post "/admin", to: "sessions#create"
   get "/logout", to: "sessions#delete"

@@ -1,0 +1,58 @@
+<% provide(:title, "Edit Book") %>
+<div class="mx-auto">
+  <section id="top-matter">
+    <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Edit "<%= @book.title.titleize %>"</h1>
+    <p class="leading-snug text-slate-800">Feel free to edit the deets or remove the book from the collection.</p>
+  </section>
+  <section id="add-book" class="mt-4">
+    <%= form_with(url: book_edit_path, method: :put, class: "flex flex-col justify-between gap-2") do |f| %>
+      <section id="owner-field">
+        <div>
+          <%= f.label :owner, class: "text-sm font-medium leading-6 text-gray-900" %>
+          <span class="text-slate-400 font-light">*</span>
+        </div>
+        <%= f.text_field :owner, required: true, list: "owner-options", autocomplete: "off", value: "#{@book.owner.name}", placeholder: "Select existing or type new owner", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
+        <datalist id="owner-options">
+          <% Owner.all.each do |owner| %>
+            <option value="<%= owner.name %>">
+          <% end %>
+        </datalist>
+      </section>
+      <section id="title-field">
+        <div>
+          <%= f.label :title, class: "text-sm font-medium leading-6 text-gray-900" %>
+          <span class="text-slate-400 font-light">*</span>
+        </div>
+        <%= f.text_area :title, required: true, autocomplete: "off", value: "#{@book.title.titleize}", placeholder: "Provide book title", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
+      </section>
+      <section id="author-field">
+        <div>
+          <%= f.label :author, class: "text-sm font-medium leading-6 text-gray-900" %>
+          <span class="text-slate-400 font-light">*</span>
+        </div>
+        <%= f.text_field :author, required: true, list: "author-options", autocomplete: "off", value: "#{@book.author.name}", placeholder: "Select existing or type new author", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
+        <datalist id="author-options">
+          <% Author.all.each do |author| %>
+            <option value="<%= author.name %>">
+          <% end %>
+        </datalist>
+      </section>
+      <section id="genres-field">
+        <div>
+          <%= f.label :genres, class: "text-sm font-medium leading-6 text-gray-900" %>
+          <span class="text-slate-400 font-light">*</span>
+        </div>
+        <%= f.text_field :genres, required: true, list: "genre-options", autocomplete: "off", value: "#{@book.genres.map(&:name).join(', ')}", placeholder: "Select existing or type new genre", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
+        <datalist id="genre-options">
+          <% Genre.all.each do |genre| %>
+            <option value="<%= genre.name %>">
+          <% end %>
+        </datalist>
+      </section>
+      <div class="mt-4 flex flex-col md:flex-row justify-between gap-2 md:gap-4">
+        <%= link_to "Cancel", books_path, class: "basis-full min-h-11 p-1 rounded-md text-xs md:text-sm font-semibold text-gray-800 shadow-sm bg-gray-300 hover:bg-gray-400 cursor-pointer content-center text-center" %>
+        <%= f.submit "Save", class: "basis-full min-h-11 p-1 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer content-center text-center" %>
+      </div>
+    <% end %>
+  </section>
+</div>

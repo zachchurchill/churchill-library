@@ -30,4 +30,11 @@ class BooksController < ApplicationController
     book.save!
     redirect_to books_path, notice: "\"#{book.title.titleize}\" has been added"
   end
+
+  def edit
+    @book = Book.first
+  end
+
+  def update
+  end
 end
