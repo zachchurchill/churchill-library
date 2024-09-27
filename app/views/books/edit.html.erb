@@ -1,10 +1,18 @@
 <% provide(:title, "Edit Book") %>
-<div class="mx-auto">
+<div class="mx-auto w-10/12 md:w-8/12 lg:w-6/12">
   <section id="top-matter">
-    <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Edit "<%= @book.title.titleize %>"</h1>
-    <p class="leading-snug text-slate-800">Feel free to edit the deets or remove the book from the collection.</p>
+    <div class="flex flex-row justify-between">
+      <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Edit "<%= @book.title.titleize %>"</h1>
+      <%= link_to book_remove_path(:id => @book.id) do %>
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="fill-red-600 hover:fill-red-500" d="M0.5 22C0.5 10.1259 10.1259 0.5 22 0.5C33.8741 0.5 43.5 10.1259 43.5 22C43.5 33.8741 33.8741 43.5 22 43.5C10.1259 43.5 0.5 33.8741 0.5 22Z" fill="#EC221F"/>
+        <path d="M14.5 17H16.1667M16.1667 17H29.5M16.1667 17L16.1667 28.6667C16.1667 29.1087 16.3423 29.5326 16.6548 29.8452C16.9674 30.1578 17.3913 30.3334 17.8333 30.3334H26.1667C26.6087 30.3334 27.0326 30.1578 27.3452 29.8452C27.6577 29.5326 27.8333 29.1087 27.8333 28.6667V17M18.6667 17V15.3334C18.6667 14.8913 18.8423 14.4674 19.1548 14.1548C19.4674 13.8423 19.8913 13.6667 20.3333 13.6667H23.6667C24.1087 13.6667 24.5326 13.8423 24.8452 14.1548C25.1577 14.4674 25.3333 14.8913 25.3333 15.3334V17M20.3333 21.1667V26.1667M23.6667 21.1667V26.1667" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <% end %>
+    </div>
+    <p class="pt-2 leading-snug text-slate-800">Feel free to edit the deets or remove the book from the collection.</p>
   </section>
-  <section id="add-book" class="mt-4">
+  <section id="edit-book" class="mt-4">
     <%= form_with(model: @book, url: book_edit_path(@book, id: @book.id), method: :put, class: "flex flex-col justify-between gap-2") do |f| %>
       <section id="owner-field">
         <div>

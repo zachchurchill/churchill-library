@@ -1,0 +1,15 @@
+<% provide(:title, "Remove Book") %>
+<div class="mx-auto w-10/12 md:w-8/12 lg:w-6/12">
+  <section id="top-matter">
+    <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Remove "<%= @book.title.titleize %>"?</h1>
+    <p class="leading-snug text-slate-800">Are you sure? Adding "<%= @book.title.titleize %>" back to the collection will require re-entering the information.</p>
+  </section>
+  <section id="remove-book" class="mt-4">
+    <%= form_with(url: book_remove_path(:id => @book.id), method: :delete, class: "flex flex-col justify-between gap-2") do |f| %>
+      <div class="mt-4 flex flex-col md:flex-row justify-between gap-2 md:gap-4">
+        <%= f.submit "Remove", class: "basis-full min-h-11 p-1 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-red-600 hover:bg-red-500 cursor-pointer content-center text-center" %>
+        <%= link_to "Cancel", :back, class: "basis-full min-h-11 p-1 rounded-md text-xs md:text-sm font-semibold text-gray-800 shadow-sm bg-gray-300 hover:bg-gray-400 cursor-pointer content-center text-center" %>
+      </div>
+    <% end %>
+  </section>
+</div>

@@ -44,8 +44,22 @@ class BooksController < ApplicationController
     if @book.save
       redirect_to books_path, notice: "\"#{@book.title.titleize}\" has been updated"
     else
-      flash.now[:error] = "Failed to update \"#{@book.title.titleize}\""
+      flash.now[:danger] = "Failed to update \"#{@book.title.titleize}\""
       render :edit
+    end
+  end
+
+  def remove
+    @book = Book.find(params[:id])
+  end
+
+  def delete
+    @book = Book.find(params[:id])
+    if @book.delete
+      redirect_to books_path, notice: "\"#{@book.title.titleize}\" has been removed"
+    else
+      flash.now[:danger] = "Failed to remove \"#{@book.title.titleize}\""
+      render :remove
     end
   end
 end

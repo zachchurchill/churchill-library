@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post "/book", to: "books#create"
   get "/book/edit", to: "books#edit"
   put "/book/edit", to: "books#update"
+  get "/book/remove", to: "books#remove"
+  delete "/book/remove", to: "books#delete"
   get "/admin", to: "sessions#new"
   post "/admin", to: "sessions#create"
   get "/logout", to: "sessions#delete"
