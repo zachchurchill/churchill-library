@@ -20,6 +20,12 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", "Add Book | #{root_title}"
   end
 
+  test "should get edit" do
+    get book_edit_path, params: { id: Book.first.id }
+    assert_response :success
+    assert_select "title", "Edit Book | #{root_title}"
+  end
+
   test "correctly adds book upon page submission" do
     genre = generate_random_string
     new_book = {

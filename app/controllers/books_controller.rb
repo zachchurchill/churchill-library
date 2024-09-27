@@ -32,9 +32,20 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @book = Book.first
+    @book = Book.find(params[:id])
   end
 
   def update
+    @book = Book.find(params[:id])
+    @book.title = params[:book][:title].strip
+    @book.owner = Owner.find_or_create_by(name: params[:book][:owner].strip.downcase)
+    @book.author = Author.find_or_create_by(name: params[:book][:author].strip.downcase)
+    @book.genres = params[:book][:genres].split(",").map { |genre| Genre.find_or_create_by(name: genre.strip.downcase) }
+    if @book.save
+      redirect_to books_path, notice: "\"#{@book.title.titleize}\" has been updated"
+    else
+      flash.now[:error] = "Failed to update \"#{@book.title.titleize}\""
+      render :edit
+    end
   end
 end
