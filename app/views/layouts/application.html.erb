@@ -38,9 +38,9 @@
       <% flash.each do |type, msg| %>
         <div
           <% if type == "danger" %>
-          class="absolute top-0 inset-x-0 width-100 bg-red-600/75 text-white my-1 p-2 rounded opacity-100 animate-fade"
+          class="z-10 absolute top-0 inset-x-0 width-100 bg-red-600/75 text-white my-1 p-2 rounded opacity-100 animate-fade"
           <% else %>
-          class="absolute top-0 inset-x-0 width-100 bg-indigo-600/75 text-white my-1 p-2 rounded opacity-100 animate-fade"
+          class="z-10 absolute top-0 inset-x-0 width-100 bg-indigo-600/75 text-white my-1 p-2 rounded opacity-100 animate-fade"
           <% end %>
           data-controller="removals"
           data-action="animationend->removals#remove"
