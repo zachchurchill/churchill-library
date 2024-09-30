@@ -55,7 +55,7 @@ class BooksController < ApplicationController
 
   def delete
     @book = Book.find(params[:id])
-    if @book.delete
+    if @book.destroy
       redirect_to books_path, notice: "\"#{@book.title.titleize}\" has been removed"
     else
       flash.now[:danger] = "Failed to remove \"#{@book.title.titleize}\""

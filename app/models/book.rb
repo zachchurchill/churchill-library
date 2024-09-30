@@ -6,5 +6,23 @@ class Book < ApplicationRecord
   before_save do
     self.title = title.downcase
   end
-  validates :title, presence: true, length: { minimum: 3, maximum: 200 }
+  before_destroy :destroy_genres
+  after_destroy :destroy_owner, :destroy_author
+  validates :title, presence: true, length: { minimum: 4, maximum: 200 }
+
+  private
+
+  def destroy_owner
+    owner.destroy unless owner.books.where.not(id: self).present?
+  end
+
+  def destroy_author
+    author.destroy unless author.books.where.not(id: self).present?
+  end
+
+  def destroy_genres
+    genres.each do |genre|
+      genre.destroy unless genre.books.where.not(id: self).present?
+    end
+  end
 end
