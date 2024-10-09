@@ -1,6 +1,6 @@
 services:
   dev:
-    image: "postgres:16"
+    image: "docker.io/pgvector/pgvector:pg16"
     restart: always
     volumes:
       - churchilllibdev:/var/lib/postgresql/data
@@ -13,7 +13,7 @@ services:
       - POSTGRES_USER=zach
       - POSTGRES_PASSWORD=churchilllibdev
   test:
-    image: "postgres:16"
+    image: "docker.io/pgvector/pgvector:pg16"
     restart: always
     volumes:
       - churchilllibtest:/var/lib/postgresql/data
