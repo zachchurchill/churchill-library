@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_09_22_015420) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "authors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -19,8 +22,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_22_015420) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
-    t.integer "owner_id", null: false
-    t.integer "author_id", null: false
+    t.bigint "owner_id", null: false
+    t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_books_on_author_id"
@@ -28,8 +31,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_22_015420) do
   end
 
   create_table "books_genres", id: false, force: :cascade do |t|
-    t.integer "book_id"
-    t.integer "genre_id"
+    t.bigint "book_id"
+    t.bigint "genre_id"
     t.index ["book_id"], name: "index_books_genres_on_book_id"
     t.index ["genre_id"], name: "index_books_genres_on_genre_id"
   end

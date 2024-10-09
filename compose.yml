@@ -1,0 +1,35 @@
+services:
+  dev:
+    image: "postgres:16"
+    restart: always
+    volumes:
+      - churchilllibdev:/var/lib/postgresql/data
+    networks:
+      - podman
+    ports:
+      - "3432:5432"
+    environment:
+      - POSTGRES_DB=churchilllib
+      - POSTGRES_USER=zach
+      - POSTGRES_PASSWORD=churchilllibdev
+  test:
+    image: "postgres:16"
+    restart: always
+    volumes:
+      - churchilllibtest:/var/lib/postgresql/data
+    networks:
+      - podman
+    ports:
+      - "4432:5432"
+    environment:
+      - POSTGRES_DB=churchilllib
+      - POSTGRES_USER=zach
+      - POSTGRES_PASSWORD=churchilllibtest
+
+volumes:
+  churchilllibdev: {}
+  churchilllibtest: {}
+
+networks:
+  podman:
+    external: true
