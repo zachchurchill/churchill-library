@@ -36,4 +36,11 @@ class BookTest < ActiveSupport::TestCase
     @book.author = nil
     assert_not @book.valid?
   end
+
+  test "to_s provides expected representation" do
+    assert_equal @book.to_s, "tester owns book written by system under the genres of metafiction"
+    new_genre = Genre.create(name: "creepypasta")
+    @book.genres = [@genre, new_genre]
+    assert_equal @book.to_s, "tester owns book written by system under the genres of metafiction, creepypasta"
+  end
 end

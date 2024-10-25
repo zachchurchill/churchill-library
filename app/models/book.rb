@@ -10,6 +10,13 @@ class Book < ApplicationRecord
   after_destroy :destroy_owner, :destroy_author
   validates :title, presence: true, length: { minimum: 4, maximum: 200 }
 
+  def to_s
+    owner = self.owner.name
+    author = self.author.name
+    genres = self.genres.map(&:name).join(", ")
+    "#{owner} owns #{title} written by #{author} under the genres of #{genres}"
+  end
+
   private
 
   def destroy_owner

@@ -9,8 +9,7 @@ class BookEmbeddingService
 
   def embed
     puts "Embedding #{@book}..."
-    # TODO: make this the `to_s` method on Book
-    puts generate_embedding("#{@book.owner.name} owns #{@book.title} written by #{@book.author.name}")
+    puts generate_embedding(@book.to_s)
   end
 
   private
