@@ -1,29 +1,14 @@
-require "openai"
-
+# Creates or updates a vector embedding for the provided book
 class BookEmbeddingService
-  attr_reader :book
+  attr_reader :book, :services_provider
 
-  def initialize(book)
+  def initialize(book, services_provider)
     @book = book
+    @services_provider = services_provider
   end
 
   def embed
     puts "Embedding #{@book}..."
-    puts generate_embedding(@book.to_s)
-  end
-
-  private
-
-  def generate_embedding(content)
-    # TODO: Think more how to separate this or make it easier to test
-    client = OpenAI::Client.new(access_token: Rails.application.credentials.api_keys.openai)
-    embedding = client.embeddings(
-      parameters: {
-        model: "text-embedding-3-small",
-        input: content,
-        dimensions: 20
-      }
-    )
-    embedding.dig("data", 0, "embedding")
+    embedding = @services_provider.embed(@book.to_s)
   end
 end
