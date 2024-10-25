@@ -14,6 +14,9 @@ gem "sqlite3", "~> 1.4"
 # Use postegresql as the database for production
 gem "pg"
 
+# Use neighbor for building similarity search for embeddings
+gem "neighbor"
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 

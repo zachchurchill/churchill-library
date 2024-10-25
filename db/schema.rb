@@ -10,14 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_22_015420) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_25_015636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "vector"
 
   create_table "authors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "book_embeddings", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.vector "embedding", limit: 256, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_book_embeddings_on_book_id", unique: true
   end
 
   create_table "books", force: :cascade do |t|
@@ -57,6 +66,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_22_015420) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
+  add_foreign_key "book_embeddings", "books"
   add_foreign_key "books", "authors"
   add_foreign_key "books", "owners"
 end

@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# one:
+#   book: one
+#   embedding: [1...100]
+# 
+# two:
+#   book: two
+#   embedding: [1...20]

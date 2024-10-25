@@ -2,6 +2,7 @@ class Book < ApplicationRecord
   belongs_to :owner
   belongs_to :author
   has_and_belongs_to_many :genres
+  has_one :book_embedding
 
   before_save do
     self.title = title.downcase
