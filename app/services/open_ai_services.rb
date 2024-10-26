@@ -13,7 +13,7 @@ class OpenAiServices
       parameters: {
         model: "text-embedding-3-small",
         input: content,
-        dimensions: 20
+        dimensions: 256
       }
     )
     embedding.dig("data", 0, "embedding")
