@@ -8,7 +8,12 @@ class BookEmbeddingService
   end
 
   def embed
-    puts "Embedding #{@book}..."
     embedding = @services_provider.embed(@book.to_s)
+    if @book.book_embedding.present?
+      @book.book_embedding.embedding = embedding
+    else
+      @book.book_embedding = BookEmbedding.new(embedding: embedding)
+    end
+    @book.save
   end
 end

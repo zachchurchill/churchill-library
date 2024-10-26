@@ -24,5 +24,10 @@ module ActiveSupport
     def log_out
       session.delete(:user_id)
     end
+
+    def generate_random_string(length)
+      alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
+      (1..length).map { alphabet.sample }.join
+    end
   end
 end
