@@ -3,16 +3,7 @@ require "test_helper"
 class EmbedBookJobTest < ActiveJob::TestCase
   test "record added to book embedding table" do
     expected_embedding = (1..256).to_a
-
-    # Likely brittle but monkeypatching :embed so that call not actually made
-    expected_embed_method = :embed
-    if OpenAiServices.instance_methods(false).include?(expected_embed_method)
-      OpenAiServices.define_method(expected_embed_method) do |_content|
-        expected_embedding
-      end
-    else
-      raise "Expecting to monkeypatch :#{expected_embed_method} for EmbedBookJobTest but it's not instance method"
-    end
+    monkeypatch_openai(:embed, expected_embedding)
 
     book = Book.new(title: generate_random_string(25), author: Author.first, owner: Owner.first)
     book.genres = [Genre.first]
