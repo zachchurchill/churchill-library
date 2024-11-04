@@ -14,6 +14,6 @@ class BookEmbeddingService
     else
       @book.book_embedding = BookEmbedding.new(embedding: embedding)
     end
-    @book.save
+    @book.book_embedding.save!
   end
 end

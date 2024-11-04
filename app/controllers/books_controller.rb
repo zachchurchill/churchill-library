@@ -28,6 +28,7 @@ class BooksController < ApplicationController
     book.author = Author.find_or_create_by(name: params[:author].strip.downcase)
     book.genres = params[:genres].split(",").map { |genre| Genre.find_or_create_by(name: genre.strip.downcase) }
     book.save!
+    EmbedBookJob.perform_later(book)
     redirect_to books_path, notice: "\"#{book.title.titleize}\" has been added"
   end
 
@@ -42,6 +43,7 @@ class BooksController < ApplicationController
     @book.author = Author.find_or_create_by(name: params[:book][:author].strip.downcase)
     @book.genres = params[:book][:genres].split(",").map { |genre| Genre.find_or_create_by(name: genre.strip.downcase) }
     if @book.save
+      EmbedBookJob.perform_later(@book)
       redirect_to books_path, notice: "\"#{@book.title.titleize}\" has been updated"
     else
       flash.now[:danger] = "Failed to update \"#{@book.title.titleize}\""

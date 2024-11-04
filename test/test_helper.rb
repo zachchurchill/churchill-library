@@ -31,12 +31,8 @@ module ActiveSupport
     end
 
     def monkeypatch_openai(method_name, response)
-      if OpenAiServices.instance_methods(false).include?(method_name)
-        OpenAiServices.define_method(method_name) do |_content|
-          response
-        end
-      else
-        raise "Expecting to monkeypatch :#{method_name} but it's not instance method"
+      OpenAiServices.define_method(method_name) do |_content|
+        response
       end
     end
   end
