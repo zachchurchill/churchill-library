@@ -4,7 +4,7 @@ require "openai"
 class OpenAiServices
   attr_reader :client
 
-  def new
+  def initialize
     @client = OpenAI::Client.new(access_token: Rails.application.credentials.api_keys.openai)
   end
 
