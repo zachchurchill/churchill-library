@@ -94,6 +94,31 @@ class RemoveBookTest < ActionDispatch::IntegrationTest
     assert_equal 0, Genre.where(name: new_genre).length
   end
 
+  test "book removal also removes book embedding" do
+    # arrange
+    expected_embedding = (1..256).to_a
+    monkeypatch_openai(:embed, expected_embedding)
+    new_book = {
+      owner: generate_random_string(15),
+      title: generate_random_string(25),
+      author: Book.first.author.name,
+      genres: Book.first.genres.join(", ")
+    }
+    perform_enqueued_jobs do
+      assert_difference "Book.count" do
+        post book_path, params: new_book
+      end
+    end
+    book = Book.find_by(title: new_book[:title])
+    book_embedding = book.book_embedding
+
+    # act
+    assert_difference "Book.count", -1 do
+      delete book_remove_path, params: { id: book.id }
+    end
+    assert_equal 0, BookEmbedding.where(id: book_embedding.id).length
+  end
+
   private
 
   def generate_random_string(length)
