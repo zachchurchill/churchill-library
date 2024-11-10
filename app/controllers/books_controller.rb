@@ -4,9 +4,9 @@ class BooksController < ApplicationController
   before_action :authenticate_user, except: [:show]
 
   def show
-    @owners = Owner.all
-    @authors = Author.all
-    @genres = Genre.all
+    @owners = Owner.all.sort_by(&:name)
+    @authors = Author.all.sort_by(&:name)
+    @genres = Genre.all.sort_by(&:name)
     @owner = Owner.find_by(id: params[:owner].presence)
     @author = Author.find_by(id: params[:author].presence)
     @genre = Genre.find_by(id: params[:genre].presence)
