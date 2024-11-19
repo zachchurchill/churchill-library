@@ -26,7 +26,7 @@ module ChatHelper
     end
 
     def add_assistant_message(content)
-      unless @messages.empty? || @messages.last[:role] == "user"
+      unless !messages.empty? && @messages.last[:role] == "user"
         raise ChatHelper::MessageOrderError, "expecting user message"
       end
 

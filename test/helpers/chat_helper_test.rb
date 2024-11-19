@@ -23,6 +23,9 @@ class ChatHelperTest < ActiveSupport::TestCase
 
   test "assistant must follow user message" do
     convo = ChatHelper::Conversation.new
+    assert_raises(ChatHelper::MessageOrderError, match: /user/i) do
+      convo.add_assistant_message("gotta wait for user first")
+    end
     convo.add_user_message("Hi")
     assert_raises(ChatHelper::MessageOrderError, match: /assistant/i) do
       convo.add_user_message("Oh wait I have a question")
