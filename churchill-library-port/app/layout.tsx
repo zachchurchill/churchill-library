@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/globals.css";
 import { StrictMode } from "react";
+import "reflect-metadata";
 
 export const metadata: Metadata = {
   title: "Churchill Library",
