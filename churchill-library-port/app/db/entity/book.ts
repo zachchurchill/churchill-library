@@ -7,7 +7,6 @@ import {
   JoinTable,
   CreateDateColumn,
   UpdateDateColumn,
-  Relation,
   JoinColumn,
 } from "typeorm";
 import { Owner } from "./owner";
@@ -28,15 +27,25 @@ export class Book {
   @UpdateDateColumn()
   updated_at!: Date
 
-  @ManyToOne(() => Owner, (owner) => owner.books)
+  @ManyToOne(() => Owner, (owner) => owner.books, { eager: true })
   @JoinColumn({ name: "owner_id" })
-  owner!: Relation<Owner>
+  owner!: Awaited<Owner>
 
-  @ManyToOne(() => Author, (author) => author.books)
+  @ManyToOne(() => Author, (author) => author.books, { eager: true })
   @JoinColumn({ name: "author_id" })
-  author!: Relation<Author>
+  author!: Awaited<Author>
 
-  @ManyToMany(() => Genre, (genre) => genre.books)
-  @JoinTable()
-  genres!: Relation<Genre>[]
+  @ManyToMany(() => Genre, (genre) => genre.books, { eager: true })
+  @JoinTable({
+    name: "books_genres",
+    joinColumn: {
+      name: "book_id",
+      referencedColumnName: "id"
+    },
+    inverseJoinColumn: {
+      name: "genre_id",
+      referencedColumnName: "id"
+    }
+  })
+  genres!: Awaited<Genre[]>
 }

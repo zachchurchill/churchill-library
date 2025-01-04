@@ -5,7 +5,6 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
-  Relation,
 } from "typeorm";
 import { Book } from "./book";
 
@@ -24,5 +23,5 @@ export class Author {
   updated_at!: Date;
 
   @OneToMany(() => Book, (book) => book.owner)
-  books!: Relation<Book>[];
+  books!: Awaited<Book[]>;
 }

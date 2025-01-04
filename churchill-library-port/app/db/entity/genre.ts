@@ -5,7 +5,6 @@ import {
   ManyToMany,
   CreateDateColumn,
   UpdateDateColumn,
-  Relation,
 } from "typeorm";
 import { Book } from "./book";
 
@@ -24,5 +23,5 @@ export class Genre {
   updated_at!: Date
 
   @ManyToMany(() => Book, (book) => book.genres)
-  books!: Relation<Book>[]
+  books!: Awaited<Book[]>
 }

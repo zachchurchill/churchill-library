@@ -23,5 +23,5 @@ export class Owner {
   updated_at!: Date
 
   @OneToMany(() => Book, (book) => book.owner)
-  books!: Book[]
+  books!: Awaited<Book[]>
 }

@@ -20,7 +20,10 @@ export default async () => {
       <table className="table-auto">
         <thead>
           <tr>
+            <th>Owner</th>
             <th>Title</th>
+            <th>Author</th>
+            <th>Genres</th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +31,10 @@ export default async () => {
             books.map((book, idx) => {
               return (
                 <tr key={idx}>
+                  <td>{book.owner.name}</td>
                   <td>{book.title}</td>
+                  <td>{book.author.name}</td>
+                  <td>{book.genres.map(genre => genre.name).join(", ")}</td>
                 </tr>
               );
             })
