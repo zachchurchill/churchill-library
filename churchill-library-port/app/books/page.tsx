@@ -1,3 +1,5 @@
+import Heading from "@/components/atoms/Header";
+import Text from "@/components/atoms/Text";
 import { AppDataSource } from "@/db/data-source";
 import { Author } from "@/db/entity/author";
 import { Owner } from "@/db/entity/owner";
@@ -12,8 +14,8 @@ export default async () => {
   return (
     <>
     <section id="top-matter">
-      <h1 className="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Browse our books</h1>
-      <p className="leading-8 text-slate-600">The Churchill Library houses books from all our family members. Explore our books using the provided search and filters.</p>
+      <Heading>Browse our books</Heading>
+      <Text>The Churchill Library houses books from all our family members. Explore our books using the provided search and filters.</Text>
     </section>
     <section id="search-and-filters" className="mt-4 flex flex-col md:flex-row justify-between gap-4">
       <form className="basis-3/4 flex flex-col justify-between gap-2">

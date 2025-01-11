@@ -4,7 +4,7 @@ import { StrictMode } from "react";
 import "reflect-metadata";
 import { Inter } from "next/font/google";
 
-import Header from "@/components/Header";
+import Header from "@/components/organisms/Header";
 
 export const metadata: Metadata = {
   title: "Churchill Library",
