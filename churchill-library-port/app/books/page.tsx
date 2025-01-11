@@ -13,7 +13,7 @@ export default async () => {
     <>
     <section id="top-matter">
       <h1 className="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Browse our books</h1>
-      <p className="leading-snug text-slate-800">The Churchill Library houses books from all our family members. Explore our books using the provided search and filters.</p>
+      <p className="leading-8 text-slate-600">The Churchill Library houses books from all our family members. Explore our books using the provided search and filters.</p>
     </section>
     <section id="search-and-filters" className="mt-4 flex flex-col md:flex-row justify-between gap-4">
       <form className="basis-3/4 flex flex-col justify-between gap-2">

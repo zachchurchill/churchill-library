@@ -11,7 +11,7 @@ interface NavLinkProps {
 const NavLink = ({ linkText, linkTo, isPrimary = true }: NavLinkProps) => (
   <Link
     href={linkTo}
-    className={`text-sm font-semibold leading-6 ${isPrimary ? "text-gray-700" : "text-gray-400"} hover:text-green-900`}
+    className={`text-sm font-semibold leading-6 ${isPrimary ? "text-slate-800" : "text-slate-400"} hover:text-green-900`}
   >
   {linkText}
   </Link>
@@ -45,7 +45,7 @@ export default function Header({ loggedIn = false }: HeaderProps) {
       </div>
       <nav className="flex flex-1 gap-x-4 md:gap-x-8 lg:gap-x-12 justify-end" aria-label="Global">
         <NavLink linkTo="/" linkText="Home" />
-        <NavLink linkTo="/" linkText="Books" />
+        <NavLink linkTo="/books" linkText="Books" />
         {
           loggedIn
           ? <NavLink linkTo="/" linkText="Logout" isPrimary={false} />
