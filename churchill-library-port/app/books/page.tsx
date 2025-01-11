@@ -1,5 +1,7 @@
 import Heading from "@/components/atoms/Header";
 import Text from "@/components/atoms/Text";
+import Label from "@/components/atoms/Label";
+import SearchField from "@/components/molecules/SearchField";
 import { AppDataSource } from "@/db/data-source";
 import { Author } from "@/db/entity/author";
 import { Owner } from "@/db/entity/owner";
@@ -19,23 +21,7 @@ export default async () => {
     </section>
     <section id="search-and-filters" className="mt-4 flex flex-col md:flex-row justify-between gap-4">
       <form className="basis-3/4 flex flex-col justify-between gap-2">
-        <div className="relative">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline absolute mt-4 ml-3">
-            <path
-              d="M13 13L10.1 10.1M11.6667 6.33333C11.6667 9.27885 9.27885 11.6667 6.33333 11.6667C3.38781 11.6667 1 9.27885 1 6.33333C1 3.38781 3.38781 1 6.33333 1C9.27885 1 11.6667 3.38781 11.6667 6.33333Z"
-              stroke="#1E1E1E"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <input
-            id="title-search"
-            type="text"
-            placeholder="Search by title..."
-            className="w-full pl-8 rounded-full border border-solid border-slate-200 focus:border-transparent focus:shadow-none"
-          />
-        </div>
+        <SearchField inputId="title-search" placeholder="Search by title..." />
         <div className="flex md:flex-row flex-col">
           <SelectDropdown label="Owner" options={owners} className="w-full mr-0 md:mr-3" />
           <SelectDropdown label="Author" options={authors} className="w-full mx-0 md:mx-2" />
@@ -61,7 +47,7 @@ const SelectDropdown: React.FC<SelectDropdownProps> = ({ options, label, classNa
   const selectId = `${label}-filter`;
   return (
     <div className={className}>
-      <label htmlFor={selectId} className="block text-xs md:text-sm font-medium leading-6 text-gray-900">{label}</label>
+      <Label label={label} inputId={selectId} />
       <select
         id={selectId}
         className="w-full rounded-lg border border-solid border-slate-200"
