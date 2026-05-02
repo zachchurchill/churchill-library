@@ -18,17 +18,28 @@
   <section id="collections-list" class="mt-4 flex flex-col gap-3">
     <% if @collections.any? %>
       <% @collections.each do |collection| %>
-        <%= link_to collection_path(collection), aria: { label: "#{collection.title.titleize} collection" }, class: "block h-36 rounded-md border border-solid border-slate-200 bg-white px-4 py-3 shadow-sm hover:border-green-700 hover:shadow-md" do %>
-          <article aria-label="collection card" class="flex h-full flex-col justify-between">
-            <div>
-              <h2 class="text-lg font-semibold leading-6 text-slate-800"><%= collection.title.titleize %></h2>
-              <% if collection.description.present? %>
-                <p class="mt-1 line-clamp-2 text-sm leading-5 text-slate-600"><%= collection.description %></p>
-              <% end %>
-            </div>
+        <article aria-label="collection card" class="relative flex h-36 flex-col justify-between rounded-md border border-solid border-slate-200 bg-white px-4 py-3 shadow-sm hover:border-green-700 hover:shadow-md">
+          <%= link_to collection_path(collection), aria: { label: "#{collection.title.titleize} collection" }, class: "absolute inset-0 z-10 rounded-md" do %>
+            <span class="sr-only">View <%= collection.title.titleize %></span>
+          <% end %>
+          <% if logged_in? %>
+            <%= link_to edit_collection_path(collection), aria: { label: "Edit #{collection.title.titleize}" }, class: "absolute right-3 top-3 z-20 rounded-md p-1 hover:bg-slate-100" do %>
+              <svg class="stroke-slate-500 hover:stroke-slate-700" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 3C17.2626 2.73735 17.5744 2.52901 17.9176 2.38687C18.2608 2.24473 18.6286 2.17157 19 2.17157C19.3714 2.17157 19.7392 2.24473 20.0824 2.38687C20.4256 2.52901 20.7374 2.73735 21 3C21.2626 3.26264 21.471 3.57444 21.6131 3.9176C21.7553 4.26077 21.8284 4.62856 21.8284 5C21.8284 5.37143 21.7553 5.73923 21.6131 6.08239C21.471 6.42555 21.2626 6.73735 21 7L7.5 20.5L2 22L3.5 16.5L17 3Z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            <% end %>
+          <% end %>
+          <div class="pointer-events-none pr-10">
+            <h2 class="text-lg font-semibold leading-6 text-slate-800"><%= collection.title.titleize %></h2>
+            <% if collection.description.present? %>
+              <p class="mt-1 line-clamp-2 text-sm leading-5 text-slate-600"><%= collection.description %></p>
+            <% end %>
+          </div>
+          <div class="pointer-events-none flex items-end justify-between gap-3">
             <p class="text-sm font-medium text-slate-700"><%= collection_summary(collection) %></p>
-          </article>
-        <% end %>
+            <p class="max-w-[40%] shrink-0 truncate text-right text-sm text-slate-500"><%= collection.owner.name %></p>
+          </div>
+        </article>
       <% end %>
     <% else %>
       <p class="text-sm leading-6 text-slate-700">No Collections match the selected owner.</p>

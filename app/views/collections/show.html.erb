@@ -1,6 +1,11 @@
 <% provide(:title, @collection.title.titleize) %>
 <div class="mx-auto">
-  <%= link_to "Back", collections_path, class: "mb-4 inline-flex min-h-10 items-center justify-center rounded-md bg-gray-300 px-4 py-2 text-sm font-semibold text-gray-800 shadow-sm hover:bg-gray-400" %>
+  <div class="mb-4 flex flex-row justify-between gap-3">
+    <%= link_to "Back", collections_path, class: "inline-flex min-h-10 items-center justify-center rounded-md bg-gray-300 px-4 py-2 text-sm font-semibold text-gray-800 shadow-sm hover:bg-gray-400" %>
+    <% if logged_in? %>
+      <%= link_to "Edit", edit_collection_path(@collection), class: "inline-flex min-h-10 items-center justify-center rounded-md bg-green-800 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700" %>
+    <% end %>
+  </div>
 
   <section id="top-matter">
     <p class="text-sm font-medium leading-6 text-slate-600"><%= @collection.owner.name %></p>

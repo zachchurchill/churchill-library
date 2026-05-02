@@ -1,7 +1,8 @@
 class CollectionsController < ApplicationController
   include SessionsHelper
 
-  before_action :authenticate_user, only: [:new, :create]
+  before_action :authenticate_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_collection, only: [:show, :edit, :update, :destroy]
 
   def index
     @owner = Owner.find_by(id: params[:owner]) if normalized_owner_id.present?
@@ -11,7 +12,6 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    @collection = Collection.includes(books: [:owner, :author, :genres]).find(params[:id])
     @books = @collection.books
   end
 
@@ -35,7 +35,57 @@ class CollectionsController < ApplicationController
     end
   end
 
+  def edit
+    @selected_book_ids = @collection.book_ids
+    load_form_options
+  end
+
+  def update
+    @selected_book_ids = normalized_book_ids
+    @collection.assign_attributes(collection_attributes)
+
+    if @selected_book_ids.empty?
+      @collection.errors.add(:books, "must include at least one book")
+      load_form_options
+      flash.now[:danger] = "Failed to update \"#{@collection.title.to_s.titleize}\""
+      render :edit, status: :unprocessable_entity
+      return
+    end
+
+    saved = false
+    Collection.transaction do
+      @collection.books = Book.where(id: @selected_book_ids)
+      saved = @collection.save
+      raise ActiveRecord::Rollback unless saved
+    end
+
+    if saved
+      redirect_to collection_path(@collection), notice: "\"#{@collection.title.titleize}\" has been updated"
+    else
+      load_form_options
+      flash.now[:danger] = "Failed to update \"#{@collection.title.to_s.titleize}\""
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    title = @collection.title.titleize
+
+    if @collection.destroy
+      redirect_to collections_path, notice: "\"#{title}\" has been removed"
+    else
+      @selected_book_ids = @collection.book_ids
+      load_form_options
+      flash.now[:danger] = "Failed to remove \"#{title}\""
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def set_collection
+    @collection = Collection.includes(books: [:owner, :author, :genres]).find(params[:id])
+  end
 
   def normalized_owner_id
     owner_id = params[:owner].to_s.strip
