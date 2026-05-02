@@ -9,4 +9,10 @@ module ApplicationHelper
       "#{page_title} | #{base_title}"
     end
   end
+
+  def books_filter_path(filters, page: nil)
+    query = filters.except("page")
+    query["page"] = page.to_s if page.to_i > 1
+    books_path(query)
+  end
 end
