@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+family_favorites:
+  owner: zach
+  title: family favorites
+  description: Books that get talked about around the house.
+
+dragon_books:
+  owner: courtney
+  title: dragon books
+  description: Fantasy favorites with dragons.

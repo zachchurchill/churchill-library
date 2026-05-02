@@ -3,6 +3,8 @@ class Book < ApplicationRecord
   belongs_to :author
   has_and_belongs_to_many :genres
   has_one :book_embedding
+  has_many :collection_books, dependent: :destroy
+  has_many :collections, through: :collection_books
 
   before_save do
     self.title = title.downcase
@@ -21,7 +23,7 @@ class Book < ApplicationRecord
   private
 
   def destroy_owner
-    owner.destroy unless owner.books.where.not(id: self).present?
+    owner.destroy unless owner.books.where.not(id: self).present? || owner.collections.present?
   end
 
   def destroy_author

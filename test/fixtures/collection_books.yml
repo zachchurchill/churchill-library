@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+family_favorites_shining:
+  collection: family_favorites
+  book: shining
+
+family_favorites_fourthwing:
+  collection: family_favorites
+  book: fourthwing
+
+dragon_books_fourthwing:
+  collection: dragon_books
+  book: fourthwing
+
+dragon_books_ironflame:
+  collection: dragon_books
+  book: ironflame
