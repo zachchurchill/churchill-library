@@ -16,7 +16,7 @@ class BooksShowButtonsTest < ActionDispatch::IntegrationTest
   test "add book and AI chat buttons available for users logged in" do
     get admin_path
     post admin_path, params: { session: { username: @user.name, password: @expected_password } }
-    assert_redirected_to books_path
+    assert_redirected_to root_path
     follow_redirect!
     assert logged_in?
     assert_template "books/show"

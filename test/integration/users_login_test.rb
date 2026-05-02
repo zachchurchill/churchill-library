@@ -23,7 +23,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_template "sessions/new"
     post admin_path, params: { session: { username: @user.name, password: @expected_password } }
     assert_not flash.empty?
-    assert_redirected_to books_path
+    assert_redirected_to root_path
+    assert_equal 303, response.status
     follow_redirect!
     assert logged_in?
     assert_template "books/show"
@@ -42,7 +43,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   test "login with valid information followed by logout" do
     get admin_path
     post admin_path, params: { session: { username: @user.name, password: @expected_password } }
-    assert_redirected_to books_path
+    assert_redirected_to root_path
+    assert_equal 303, response.status
     follow_redirect!
     assert logged_in?
     assert_select "a[href=?]", logout_path
