@@ -1,0 +1,24 @@
+<% provide(:title, @collection.title.titleize) %>
+<div class="mx-auto">
+  <section id="top-matter">
+    <p class="text-sm font-medium leading-6 text-slate-600"><%= @collection.owner.name %></p>
+    <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800"><%= @collection.title.titleize %></h1>
+    <% if @collection.description.present? %>
+      <p class="mt-1 leading-snug text-slate-800"><%= @collection.description %></p>
+    <% end %>
+    <p class="mt-2 text-sm font-medium text-slate-700"><%= pluralize(@books.size, "book") %></p>
+  </section>
+
+  <section id="collection-books" class="mt-4">
+    <ul class="flex flex-col gap-3">
+      <% @books.each do |book| %>
+        <li aria-label="collection book" class="rounded-md border border-solid border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-800 shadow-sm">
+          <span class="font-medium"><%= book.title.titleize %></span>
+          <span>by <%= book.author.name %></span>
+          <span>owned by <%= book.owner.name %></span>
+          <span>in <%= book.genres.map(&:name).join(", ") %></span>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+</div>
