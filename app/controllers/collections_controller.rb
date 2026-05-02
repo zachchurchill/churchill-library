@@ -6,7 +6,7 @@ class CollectionsController < ApplicationController
   def index
     @owner = Owner.find_by(id: params[:owner]) if normalized_owner_id.present?
     @owners = Owner.where(id: Collection.select(:owner_id)).distinct.order(:name)
-    @collections = Collection.includes(:owner, :books).order(:title)
+    @collections = Collection.includes(:owner, books: [:author, :genres]).order(:title)
     @collections = @collections.where(owner: @owner) if @owner.present?
   end
 

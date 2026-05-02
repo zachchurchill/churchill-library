@@ -12,7 +12,7 @@ class LibraryControllerTest < ActionDispatch::IntegrationTest
     assert_select "select[id='author']"
     assert_select "select[id='genre']"
     assert_select "tr[aria-label='book row']"
-    assert_select "a[href=?]", root_path, count: 1
+    assert_select "a[href=?]", root_path, count: 2
     assert_select "a[href=?]", books_path, count: 0
     assert_select "a[href=?]", admin_path
   end
