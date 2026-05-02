@@ -11,7 +11,8 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   test "should get show" do
     get books_path
     assert_response :success
-    assert_select "title", "Collections | #{root_title}"
+    assert_select "title", "Books | #{root_title}"
+    assert_select "h1", "Welcome to the Library"
   end
 
   test "should get add" do

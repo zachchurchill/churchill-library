@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  root "library#home"
+  root "books#show"
 
-  get "/", to: "library#home"
   get "/books", to: "books#show"
   get "/book", to: "books#add"
   post "/book", to: "books#create"
