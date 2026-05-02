@@ -4,8 +4,6 @@ services:
     restart: always
     volumes:
       - churchilllibdev:/var/lib/postgresql/data
-    networks:
-      - podman
     ports:
       - "3432:5432"
     environment:
@@ -17,8 +15,6 @@ services:
     restart: always
     volumes:
       - churchilllibtest:/var/lib/postgresql/data
-    networks:
-      - podman
     ports:
       - "4432:5432"
     environment:
@@ -29,7 +25,3 @@ services:
 volumes:
   churchilllibdev: {}
   churchilllibtest: {}
-
-networks:
-  podman:
-    external: true
