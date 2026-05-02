@@ -31,6 +31,8 @@ module ActiveSupport
     end
 
     def monkeypatch_openai(method_name, response)
+      OpenAiServices.define_method(:initialize) do
+      end
       OpenAiServices.define_method(method_name) do |_content|
         response
       end

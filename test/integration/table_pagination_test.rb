@@ -12,4 +12,13 @@ class TablePaginationTest < ActionDispatch::IntegrationTest
     get books_path
     assert_select "select[id='owner']"
   end
+
+  test "pagination links keep active filters and omit page one" do
+    get books_path, params: { owner: owners(:system).id, page: 2 }
+    assert_response :success
+
+    assert_select "a[href='#{books_path(owner: owners(:system).id)}']", text: "1"
+    assert_select "a[href='#{books_path(owner: owners(:system).id)}']", text: "Previous"
+    assert_select "a[href='#{books_path(owner: owners(:system).id, page: 3)}']", text: "Next"
+  end
 end

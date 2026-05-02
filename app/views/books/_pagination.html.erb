@@ -1,0 +1,23 @@
+<div id="books-pagination" aria-label="Pagination" class="mt-2 flex flex-row justify-center text-sm md:text-base text-slate-600 *:mx-2 [&_em]:text-white [&_em]:bg-slate-900 [&_em]:px-2 [&_em]:rounded-lg [&_span]:cursor-not-allowed [&_span]:text-slate-400">
+  <% if books.total_pages > 1 %>
+    <% if books.previous_page %>
+      <%= link_to "Previous", books_filter_path(filters, page: books.previous_page) %>
+    <% else %>
+      <span>Previous</span>
+    <% end %>
+
+    <% 1.upto(books.total_pages) do |page| %>
+      <% if page == books.current_page %>
+        <em><%= page %></em>
+      <% else %>
+        <%= link_to page, books_filter_path(filters, page: page) %>
+      <% end %>
+    <% end %>
+
+    <% if books.next_page %>
+      <%= link_to "Next", books_filter_path(filters, page: books.next_page) %>
+    <% else %>
+      <span>Next</span>
+    <% end %>
+  <% end %>
+</div>

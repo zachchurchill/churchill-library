@@ -1,0 +1,19 @@
+<%= turbo_stream.update "owner" do %>
+  <%= render "filter_options", records: @owners, selected_id: @owner&.id, blank_label: "All Owners" %>
+<% end %>
+
+<%= turbo_stream.update "author" do %>
+  <%= render "filter_options", records: @authors, selected_id: @author&.id, blank_label: "All Authors" %>
+<% end %>
+
+<%= turbo_stream.update "genre" do %>
+  <%= render "filter_options", records: @genres, selected_id: @genre&.id, blank_label: "All Genres" %>
+<% end %>
+
+<%= turbo_stream.update "books-table-body" do %>
+  <%= render "books_table_rows", books: @books %>
+<% end %>
+
+<%= turbo_stream.replace "books-pagination" do %>
+  <%= render "pagination", books: @books, filters: @canonical_query %>
+<% end %>

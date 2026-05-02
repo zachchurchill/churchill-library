@@ -5,25 +5,25 @@
     <p class="leading-snug text-slate-800">The Churchill Library houses books from all our family members. Explore our books using the provided search and filters.</p>
   </section>
   <section id="search-and-filters" class="mt-4 flex flex-col md:flex-row justify-between gap-4">
-    <%= form_with(url: books_path, method: :get, class: "basis-3/4 flex flex-col justify-between gap-2") do |f| %>
+    <%= form_with(url: books_path, method: :get, class: "basis-3/4 flex flex-col justify-between gap-2", data: { controller: "books-filter", action: "submit->books-filter#submit" }) do |f| %>
       <div class="relative">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline absolute mt-4 ml-3">
           <path d="M13 13L10.1 10.1M11.6667 6.33333C11.6667 9.27885 9.27885 11.6667 6.33333 11.6667C3.38781 11.6667 1 9.27885 1 6.33333C1 3.38781 3.38781 1 6.33333 1C9.27885 1 11.6667 3.38781 11.6667 6.33333Z" stroke="#1E1E1E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <%= f.search_field :title, placeholder: "Search by title...", value: params[:title], class: "w-full pl-8 rounded-full border border-solid border-slate-200 focus:border-transparent focus:shadow-none" %>
+        <%= f.search_field :title, placeholder: "Search by title...", value: @filters["title"], class: "w-full pl-8 rounded-full border border-solid border-slate-200 focus:border-transparent focus:shadow-none", data: { action: "input->books-filter#search" } %>
       </div>
       <div class="flex md:flex-row flex-col">
         <div class="w-full mr-0 md:mr-3">
           <%= f.label :owner, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-          <%= select_tag :owner, options_from_collection_for_select(@owners, :id, :name, @owner&.id), include_blank: "All Owners", onchange: "this.form.requestSubmit()", class: "w-full rounded-lg border border-solid border-slate-200" %>
+          <%= select_tag :owner, render("filter_options", records: @owners, selected_id: @owner&.id, blank_label: "All Owners"), class: "w-full rounded-lg border border-solid border-slate-200", data: { action: "change->books-filter#submit" } %>
         </div>
         <div class="w-full mx-0 md:mx-2">
           <%= f.label :author, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-          <%= select_tag :author, options_from_collection_for_select(@authors, :id, :name, @author&.id), include_blank: "All Authors", onchange: "this.form.requestSubmit()", class: "w-full rounded-lg border border-solid border-slate-200" %>
+          <%= select_tag :author, render("filter_options", records: @authors, selected_id: @author&.id, blank_label: "All Authors"), class: "w-full rounded-lg border border-solid border-slate-200", data: { action: "change->books-filter#submit" } %>
         </div>
         <div class="w-full ml-0 md:ml-3">
           <%= f.label :genre, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
-          <%= select_tag :genre, options_from_collection_for_select(@genres, :id, :name, @genre&.id), include_blank: "All Genres", onchange: "this.form.requestSubmit()", class: "w-full rounded-lg border border-solid border-slate-200" %>
+          <%= select_tag :genre, render("filter_options", records: @genres, selected_id: @genre&.id, blank_label: "All Genres"), class: "w-full rounded-lg border border-solid border-slate-200", data: { action: "change->books-filter#submit" } %>
         </div>
       </div>
     <% end %>
@@ -48,10 +48,10 @@
           <th class="w-3/12 font-medium text-inherit">Genres</th>
         </tr>
       </thead>
-      <tbody class="font-light text-sm md:text-base text-slate-800 space-y-8 md:space-y-6 lg:space-y-4">
-      <%= render @books %>
+      <tbody id="books-table-body" class="font-light text-sm md:text-base text-slate-800 space-y-8 md:space-y-6 lg:space-y-4">
+        <%= render "books_table_rows", books: @books %>
       </tbody>
     </table>
-    <%= will_paginate @books, size: 10, class: "mt-2 flex flex-row justify-center text-sm md:text-base text-slate-600 *:mx-2 [&_em]:text-white [&_em]:bg-slate-900 [&_em]:px-2 [&_em]:rounded-lg [&_span]:cursor-not-allowed [&_span]:text-slate-400" %>
+    <%= render "pagination", books: @books, filters: @canonical_query %>
   </section>
 </div>
