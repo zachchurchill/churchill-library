@@ -5,10 +5,13 @@
     <p class="leading-snug text-slate-800">Explore our family reading Collections through the curated lists below.</p>
   </section>
 
-  <section id="collection-filters" class="mt-4">
-    <%= form_with(url: collections_path, method: :get, class: "max-w-sm") do |f| %>
+  <section id="collection-filters" class="mt-4 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+    <%= form_with(url: collections_path, method: :get, class: "w-full max-w-sm") do |f| %>
       <%= f.label :owner, class: "block text-xs md:text-sm font-medium leading-6 text-gray-900" %>
       <%= select_tag :owner, options_from_collection_for_select(@owners, :id, :name, @owner&.id), include_blank: "All Owners", class: "w-full rounded-lg border border-solid border-slate-200", onchange: "this.form.requestSubmit()" %>
+    <% end %>
+    <% if logged_in? %>
+      <%= link_to "Add Collection", new_collection_path, class: "min-h-11 rounded-md bg-green-800 px-4 py-2 text-center text-xs font-semibold text-white shadow-sm hover:bg-green-700 md:text-sm" %>
     <% end %>
   </section>
 

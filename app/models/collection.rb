@@ -4,7 +4,7 @@ class Collection < ApplicationRecord
   has_many :books, through: :collection_books
 
   before_save do
-    self.title = title.downcase
+    self.title = title.downcase if title.present?
   end
 
   validates :title, presence: true
