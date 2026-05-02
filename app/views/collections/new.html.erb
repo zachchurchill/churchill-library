@@ -6,52 +6,6 @@
   </section>
 
   <section id="add-collection" class="mt-4">
-    <%= form_with(url: collections_path, method: :post, scope: :collection, class: "flex flex-col justify-between gap-2") do |f| %>
-      <section id="owner-field">
-        <div>
-          <%= f.label :owner_id, "Owner", class: "text-sm font-medium leading-6 text-gray-900" %>
-          <span class="text-slate-400 font-light">*</span>
-        </div>
-        <%= f.select :owner_id, options_from_collection_for_select(@owners, :id, :name, @collection.owner_id), { prompt: "Select owner" }, required: true, class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
-      </section>
-
-      <section id="title-field">
-        <div>
-          <%= f.label :title, class: "text-sm font-medium leading-6 text-gray-900" %>
-          <span class="text-slate-400 font-light">*</span>
-        </div>
-        <%= f.text_area :title, required: true, autocomplete: "off", value: @collection.title, placeholder: "Provide collection title", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
-      </section>
-
-      <section id="description-field">
-        <%= f.label :description, class: "text-sm font-medium leading-6 text-gray-900" %>
-        <%= f.text_area :description, autocomplete: "off", value: @collection.description, placeholder: "Provide a short description", class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
-      </section>
-
-      <section id="books-field" data-controller="collection-books-picker">
-        <div>
-          <%= f.label :book_ids, "Books", class: "text-sm font-medium leading-6 text-gray-900" %>
-          <span class="text-slate-400 font-light">*</span>
-        </div>
-        <%= search_field_tag :book_search, nil, placeholder: "Search books by title...", autocomplete: "off", class: "mb-2 w-full rounded-full border border-solid border-slate-200 focus:border-transparent focus:shadow-none", data: { action: "input->collection-books-picker#filter" } %>
-        <%= hidden_field_tag "collection[book_ids][]", "" %>
-        <div class="max-h-96 overflow-y-auto rounded-md border border-solid border-slate-200 bg-white">
-          <% @books.each do |book| %>
-            <label class="flex cursor-pointer gap-3 border-b border-solid border-slate-100 px-3 py-2 last:border-b-0 hover:bg-slate-50" data-collection-books-picker-target="book" data-title="<%= book.title.downcase %>">
-              <%= check_box_tag "collection[book_ids][]", book.id, @selected_book_ids.include?(book.id), class: "mt-1 rounded border-slate-300 text-green-800 focus:ring-green-700" %>
-              <span class="text-sm leading-6 text-slate-800">
-                <span class="font-medium"><%= book.title.titleize %></span>
-                <span class="text-slate-600">by <%= book.author.name %>, owned by <%= book.owner.name %></span>
-              </span>
-            </label>
-          <% end %>
-        </div>
-      </section>
-
-      <div class="mt-4 flex flex-col md:flex-row justify-between gap-2 md:gap-4">
-        <%= link_to "Cancel", collections_path, class: "basis-full min-h-11 p-1 rounded-md text-xs md:text-sm font-semibold text-gray-800 shadow-sm bg-gray-300 hover:bg-gray-400 cursor-pointer content-center text-center" %>
-        <%= f.submit "Save", class: "basis-full min-h-11 p-1 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer content-center text-center" %>
-      </div>
-    <% end %>
+    <%= render "form", url: collections_path, method: :post, cancel_path: collections_path %>
   </section>
 </div>

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   put "/book/edit", to: "books#update"
   get "/book/remove", to: "books#remove"
   delete "/book/remove", to: "books#delete"
-  resources :collections, only: [:index, :show, :new, :create]
+  resources :collections
   get "/admin", to: "sessions#new"
   post "/admin", to: "sessions#create"
   get "/logout", to: "sessions#delete"
