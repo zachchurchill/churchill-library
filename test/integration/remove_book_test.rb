@@ -119,6 +119,20 @@ class RemoveBookTest < ActionDispatch::IntegrationTest
     assert_equal 0, BookEmbedding.where(id: book_embedding.id).length
   end
 
+  test "book removal removes collection membership without deleting collection" do
+    collection = collections(:family_favorites)
+    book = books(:shining)
+    assert_includes collection.books, book
+
+    assert_no_difference "Collection.count" do
+      assert_difference "CollectionBook.count", -1 do
+        delete book_remove_path, params: { id: book.id }
+      end
+    end
+
+    assert_not_includes collection.reload.books, book
+  end
+
   private
 
   def generate_random_string(length)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_25_015636) do
+ActiveRecord::Schema[7.1].define(version: 2026_05_02_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -46,6 +46,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_015636) do
     t.index ["genre_id"], name: "index_books_genres_on_genre_id"
   end
 
+  create_table "collection_books", force: :cascade do |t|
+    t.bigint "collection_id", null: false
+    t.bigint "book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_collection_books_on_book_id"
+    t.index ["collection_id", "book_id"], name: "index_collection_books_on_collection_id_and_book_id", unique: true
+    t.index ["collection_id"], name: "index_collection_books_on_collection_id"
+  end
+
+  create_table "collections", force: :cascade do |t|
+    t.bigint "owner_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_collections_on_owner_id"
+  end
+
   create_table "genres", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -69,4 +88,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_015636) do
   add_foreign_key "book_embeddings", "books"
   add_foreign_key "books", "authors"
   add_foreign_key "books", "owners"
+  add_foreign_key "collection_books", "books"
+  add_foreign_key "collection_books", "collections"
+  add_foreign_key "collections", "owners"
 end

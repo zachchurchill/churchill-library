@@ -1,5 +1,6 @@
 class Owner < ApplicationRecord
   has_many :books
+  has_many :collections
 
   before_save do
     self.name = name.downcase
