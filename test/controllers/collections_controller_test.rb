@@ -14,6 +14,8 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
     assert_select "p", "Explore our family reading Collections through the curated lists below."
     assert_select "select[id='owner']"
     assert_select "article[aria-label='collection card']", 2
+    assert_select "p", "Contains 2 books, from 2 authors, spanning 3 genres"
+    assert_select "p", "Contains 2 books, from 1 author, spanning 2 genres"
     assert_select "a[href=?]", collection_path(collections(:family_favorites))
     assert_select "a[href=?]", collection_path(collections(:dragon_books))
     assert_select "a[href=?]", collections_path
@@ -35,13 +37,11 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select "title", "Family Favorites | #{root_title}"
+    assert_select "a[href=?]", collections_path, text: "Back"
     assert_select "h1", "Family Favorites"
     assert_select "li[aria-label='collection book']", 2
-    assert_select "li", text: /The Shining/
-    assert_select "li", text: /Stephen King/
-    assert_select "li", text: /Zach/
-    assert_select "li", text: /Fourth Wing/
-    assert_select "li", text: /Courtney/
+    assert_select "li", text: "\"The Shining\" by Stephen King; Genres: Horror"
+    assert_select "li", text: "\"Fourth Wing\" by Rebecca Yarros; Genres: Fantasy, Romance"
   end
 
   test "logged in user should get new" do

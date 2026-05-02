@@ -1,5 +1,7 @@
 <% provide(:title, @collection.title.titleize) %>
 <div class="mx-auto">
+  <%= link_to "Back", collections_path, class: "mb-4 inline-flex min-h-10 items-center justify-center rounded-md bg-gray-300 px-4 py-2 text-sm font-semibold text-gray-800 shadow-sm hover:bg-gray-400" %>
+
   <section id="top-matter">
     <p class="text-sm font-medium leading-6 text-slate-600"><%= @collection.owner.name %></p>
     <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800"><%= @collection.title.titleize %></h1>
@@ -10,14 +12,9 @@
   </section>
 
   <section id="collection-books" class="mt-4">
-    <ul class="flex flex-col gap-3">
+    <ul class="list-disc pl-5 text-sm leading-7 text-slate-800">
       <% @books.each do |book| %>
-        <li aria-label="collection book" class="rounded-md border border-solid border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-800 shadow-sm">
-          <span class="font-medium"><%= book.title.titleize %></span>
-          <span>by <%= book.author.name %></span>
-          <span>owned by <%= book.owner.name %></span>
-          <span>in <%= book.genres.map(&:name).join(", ") %></span>
-        </li>
+        <li aria-label="collection book">"<%= book.title.titleize %>" by <%= book.author.name %>; Genres: <%= book.genres.map(&:name).join(", ") %></li>
       <% end %>
     </ul>
   </section>
