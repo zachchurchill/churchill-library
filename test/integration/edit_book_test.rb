@@ -64,7 +64,7 @@ class EditBookTest < ActionDispatch::IntegrationTest
   def login
     get admin_path
     post admin_path, params: { session: { username: @user.name, password: @expected_password } }
-    assert_redirected_to books_path
+    assert_redirected_to root_path
     follow_redirect!
     assert logged_in?
   end

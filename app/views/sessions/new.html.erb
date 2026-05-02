@@ -1,7 +1,7 @@
 <% provide(:title, "Admin") %>
 <section class="mx-auto w-fit">
   <h1 class="text-xl md:text-2xl font-semibold leading-7 text-gray-900">Welcome back to the Library!</h1>
-  <%= form_with(url: admin_path, scope: :session, local: true, class: "mt-4 flex flex-col gap-4") do |f| %>
+  <%= form_with(url: admin_path, scope: :session, local: true, class: "mt-4 flex flex-col gap-4", data: { turbo: false }) do |f| %>
     <div>
       <%= f.label :username, class: "block text-sm font-medium leading-6 text-gray-900" %>
       <%= f.text_field :username, class: "w-full border border-solid border-slate-200 rounded-md focus:border-transparent focus:shadow-none" %>
