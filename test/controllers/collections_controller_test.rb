@@ -1,6 +1,11 @@
 require "test_helper"
 
 class CollectionsControllerTest < ActionDispatch::IntegrationTest
+  def setup
+    @user = users(:librarian)
+    @expected_password = "foobar123!"
+  end
+
   test "should get index" do
     get collections_path
     assert_response :success
@@ -12,6 +17,7 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", collection_path(collections(:family_favorites))
     assert_select "a[href=?]", collection_path(collections(:dragon_books))
     assert_select "a[href=?]", collections_path
+    assert_select "a[href=?]", new_collection_path, count: 0
     assert_select "a[href=?]", books_path, count: 0
   end
 
@@ -36,5 +42,97 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
     assert_select "li", text: /Zach/
     assert_select "li", text: /Fourth Wing/
     assert_select "li", text: /Courtney/
+  end
+
+  test "logged in user should get new" do
+    log_in_as_librarian
+    get new_collection_path
+    assert_response :success
+    assert_select "title", "Add Collection | #{root_title}"
+    assert_select "select[id='collection_owner_id']"
+    assert_select "textarea[id='collection_title']"
+    assert_select "textarea[id='collection_description']"
+    assert_select "input[id='book_search']"
+    assert_select "input[type='checkbox']", Book.count
+  end
+
+  test "logged out user cannot get new" do
+    get new_collection_path
+    assert_redirected_to admin_path
+  end
+
+  test "index shows add collection button for logged in user" do
+    log_in_as_librarian
+    get collections_path
+    assert_response :success
+    assert_select "a[href=?]", new_collection_path
+  end
+
+  test "logged in user can create collection with books from any owner" do
+    log_in_as_librarian
+    book_ids = [books(:shining).id, books(:fourthwing).id]
+
+    assert_no_difference "Book.count" do
+      assert_difference "Collection.count" do
+        assert_difference "CollectionBook.count", 2 do
+          post collections_path, params: {
+            collection: {
+              owner_id: owners(:zach).id,
+              title: "shared reads",
+              description: "Books from the shared library.",
+              book_ids: book_ids
+            }
+          }
+        end
+      end
+    end
+
+    collection = Collection.find_by(title: "shared reads")
+    assert_redirected_to collection_path(collection)
+    assert_equal owners(:zach), collection.owner
+    assert_includes collection.books, books(:shining)
+    assert_includes collection.books, books(:fourthwing)
+  end
+
+  test "logged in user cannot create collection without books" do
+    log_in_as_librarian
+
+    assert_no_difference "Collection.count" do
+      post collections_path, params: {
+        collection: {
+          owner_id: owners(:zach).id,
+          title: "empty list",
+          description: "No books selected.",
+          book_ids: []
+        }
+      }
+    end
+
+    assert_response :unprocessable_entity
+    assert_template :new
+  end
+
+  test "logged out user cannot create collection" do
+    assert_no_difference "Collection.count" do
+      post collections_path, params: {
+        collection: {
+          owner_id: owners(:zach).id,
+          title: "shared reads",
+          book_ids: [books(:shining).id]
+        }
+      }
+    end
+
+    assert_redirected_to admin_path
+  end
+
+  private
+
+  def log_in_as_librarian
+    get admin_path
+    post admin_path, params: { session: { username: @user.name, password: @expected_password } }
+    assert_redirected_to books_path
+    follow_redirect!
+    assert logged_in?
   end
 end
