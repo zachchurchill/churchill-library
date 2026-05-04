@@ -11,6 +11,7 @@
 - Treat the worktree as shared. Do not revert, overwrite, stage, or commit changes you did not make unless explicitly asked.
 - Keep changes small and committable. For multi-step features, commit each logical step separately.
 - Use `rg`/`rg --files` for search and `apply_patch` for manual edits.
+- For GitHub publishing and PR creation, default to the local `git` and `gh` CLIs: use `git` for branch/stage/commit/push and `gh pr create` for pull requests. Use GitHub connectors only as a fallback or when explicitly requested.
 
 ## Testing
 - Run targeted Rails tests while iterating, for example:
