@@ -17,6 +17,7 @@ class RemoveBookTest < ActionDispatch::IntegrationTest
       delete book_remove_path, params: { id: book.id }
     end
     assert_redirected_to books_path
+    assert_response :see_other
     assert_not flash.empty?
   end
 

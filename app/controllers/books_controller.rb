@@ -50,7 +50,7 @@ class BooksController < ApplicationController
     book.genres = params[:genres].split(",").map { |genre| Genre.find_or_create_by(name: genre.strip.downcase) }
     book.save!
     EmbedBookJob.perform_later(book)
-    redirect_to books_path, notice: "\"#{book.title.titleize}\" has been added"
+    redirect_to books_path, status: :see_other, notice: "\"#{book.title.titleize}\" has been added"
   end
 
   def edit
@@ -65,7 +65,7 @@ class BooksController < ApplicationController
     @book.genres = params[:book][:genres].split(",").map { |genre| Genre.find_or_create_by(name: genre.strip.downcase) }
     if @book.save
       EmbedBookJob.perform_later(@book)
-      redirect_to books_path, notice: "\"#{@book.title.titleize}\" has been updated"
+      redirect_to books_path, status: :see_other, notice: "\"#{@book.title.titleize}\" has been updated"
     else
       flash.now[:danger] = "Failed to update \"#{@book.title.titleize}\""
       render :edit
@@ -79,7 +79,7 @@ class BooksController < ApplicationController
   def delete
     @book = Book.find(params[:id])
     if @book.destroy
-      redirect_to books_path, notice: "\"#{@book.title.titleize}\" has been removed"
+      redirect_to books_path, status: :see_other, notice: "\"#{@book.title.titleize}\" has been removed"
     else
       flash.now[:danger] = "Failed to remove \"#{@book.title.titleize}\""
       render :remove

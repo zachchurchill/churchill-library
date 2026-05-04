@@ -10,6 +10,7 @@ class AddBookTest < ActionDispatch::IntegrationTest
     login
     post book_path, params: { owner: "qwerty", title: "this is a test", author: "myself", genres: "meta" }
     assert_redirected_to books_path
+    assert_response :see_other
     assert_not flash.empty?
   end
 

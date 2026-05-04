@@ -25,6 +25,7 @@ class EditBookTest < ActionDispatch::IntegrationTest
 
     # assert
     assert_redirected_to books_path
+    assert_response :see_other
     assert_not flash.empty?
     assert_equal new_title, Book.find(book.id).title
   end
