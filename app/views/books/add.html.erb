@@ -5,7 +5,7 @@
     <p class="leading-snug text-slate-800">Great! I can't wait to see what book you add to the Collections.</p>
   </section>
   <section id="add-book" class="mt-4">
-    <%= form_with(url: book_path, method: :post, class: "flex flex-col justify-between gap-2") do |f| %>
+    <%= form_with(url: book_path, method: :post, class: "flex flex-col justify-between gap-2", data: { turbo: false }) do |f| %>
       <section id="owner-field">
         <div>
           <%= f.label :owner, class: "text-sm font-medium leading-6 text-gray-900" %>
