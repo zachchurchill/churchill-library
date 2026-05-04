@@ -13,13 +13,25 @@
     <% if @collection.description.present? %>
       <p class="mt-1 leading-snug text-slate-800"><%= @collection.description %></p>
     <% end %>
-    <p class="mt-2 text-sm font-medium text-slate-700"><%= pluralize(@books.size, "book") %></p>
+    <p class="mt-2 text-sm font-medium text-slate-700"><%= collection_summary(@collection) %></p>
   </section>
 
   <section id="collection-books" class="mt-4">
-    <ul class="list-disc pl-5 text-sm leading-7 text-slate-800">
+    <ul class="divide-y divide-slate-300 border-y border-slate-300">
       <% @books.each do |book| %>
-        <li aria-label="collection book">"<%= book.title.titleize %>" by <%= book.author.name %>; Genres: <%= book.genres.map(&:name).join(", ") %></li>
+        <li aria-label="collection book" class="py-3">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <div class="min-w-0">
+              <p class="text-base font-semibold leading-snug text-slate-900"><%= book.title.titleize %></p>
+              <p class="mt-1 text-sm leading-5 text-slate-600">by <%= book.author.name %></p>
+            </div>
+            <div class="flex flex-wrap gap-1.5 sm:max-w-xs sm:justify-end">
+              <% book.genres.each do |genre| %>
+                <span class="inline-flex items-center rounded-full bg-slate-200 px-2 py-0.5 text-xs font-medium leading-5 text-slate-700"><%= genre.name %></span>
+              <% end %>
+            </div>
+          </div>
+        </li>
       <% end %>
     </ul>
   </section>

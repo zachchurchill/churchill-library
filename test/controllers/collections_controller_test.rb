@@ -43,9 +43,15 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", collections_path, text: "Back"
     assert_select "a[href=?]", edit_collection_path(collections(:family_favorites)), count: 0
     assert_select "h1", "Family Favorites"
+    assert_select "section#top-matter p", "Contains 2 books, from 2 authors, spanning 3 genres"
     assert_select "li[aria-label='collection book']", 2
-    assert_select "li", text: "\"The Shining\" by Stephen King; Genres: Horror"
-    assert_select "li", text: "\"Fourth Wing\" by Rebecca Yarros; Genres: Fantasy, Romance"
+    assert_select "li[aria-label='collection book'] p", "The Shining"
+    assert_select "li[aria-label='collection book'] p", "by Stephen King"
+    assert_select "li[aria-label='collection book'] span", "Horror"
+    assert_select "li[aria-label='collection book'] p", "Fourth Wing"
+    assert_select "li[aria-label='collection book'] p", "by Rebecca Yarros"
+    assert_select "li[aria-label='collection book'] span", "Fantasy"
+    assert_select "li[aria-label='collection book'] span", "Romance"
   end
 
   test "logged in user should get new" do
