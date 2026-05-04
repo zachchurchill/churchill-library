@@ -2,6 +2,8 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
+Dir[Rails.root.join("test/support/**/*.rb").to_s].sort.each { |file| require file }
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
@@ -30,12 +32,9 @@ module ActiveSupport
       (1..length).map { alphabet.sample }.join
     end
 
-    def monkeypatch_openai(method_name, response)
-      OpenAiServices.define_method(:initialize) do
-      end
-      OpenAiServices.define_method(method_name) do |_content|
-        response
-      end
+    def with_fake_open_ai_client(embeddings: [], responses: [], shared: false)
+      fake_client = FakeOpenAiClient.new(embeddings: embeddings, responses: responses)
+      OpenAi::ClientFactory.with_client(fake_client, shared: shared) { yield fake_client }
     end
   end
 end

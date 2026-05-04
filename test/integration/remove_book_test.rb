@@ -98,16 +98,17 @@ class RemoveBookTest < ActionDispatch::IntegrationTest
   test "book removal also removes book embedding" do
     # arrange
     expected_embedding = (1..256).to_a
-    monkeypatch_openai(:embed, expected_embedding)
     new_book = {
       owner: generate_random_string(15),
       title: generate_random_string(25),
       author: Book.first.author.name,
       genres: Book.first.genres.join(", ")
     }
-    perform_enqueued_jobs do
-      assert_difference "Book.count" do
-        post book_path, params: new_book
+    with_fake_open_ai_client(embeddings: [expected_embedding]) do
+      perform_enqueued_jobs do
+        assert_difference "Book.count" do
+          post book_path, params: new_book
+        end
       end
     end
     book = Book.find_by(title: new_book[:title])

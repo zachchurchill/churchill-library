@@ -33,25 +33,29 @@ class EditBookTest < ActionDispatch::IntegrationTest
   test "book embedding changes when book is updated" do
     # arrange
     login
-    monkeypatch_openai(:embed, (1..256).to_a)
     book = Book.first
-    perform_enqueued_jobs { EmbedBookJob.perform_now(book) } if book.book_embedding.nil?
+    if book.book_embedding.nil?
+      with_fake_open_ai_client(embeddings: [(1..256).to_a]) do
+        perform_enqueued_jobs { EmbedBookJob.perform_now(book) }
+      end
+    end
     book.save!
     new_embedding = (10..265).to_a
-    monkeypatch_openai(:embed, new_embedding)
 
     # act
     new_title = generate_random_string(15)
-    perform_enqueued_jobs do
-      put book_edit_path, params: {
-        id: book.id,
-        book: {
-          owner: book.owner.name,
-          author: book.author.name,
-          title: new_title,
-          genres: book.genres.join(", ")
+    with_fake_open_ai_client(embeddings: [new_embedding]) do
+      perform_enqueued_jobs do
+        put book_edit_path, params: {
+          id: book.id,
+          book: {
+            owner: book.owner.name,
+            author: book.author.name,
+            title: new_title,
+            genres: book.genres.join(", ")
+          }
         }
-      }
+      end
     end
 
     # assert
