@@ -1,0 +1,7 @@
+<% role = message["role"] || message[:role] %>
+<% content = message["content"] || message[:content] %>
+<div class="flex <%= role == "user" ? "justify-end" : "justify-start" %>">
+  <div class="max-w-[85%] rounded-md px-3 py-2 text-sm leading-5 <%= role == "user" ? "bg-green-800 text-white" : "bg-white text-slate-800 border border-slate-200" %>">
+    <%= simple_format(content, {}, wrapper_tag: "p") %>
+  </div>
+</div>

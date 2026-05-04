@@ -1,0 +1,2 @@
+<%= render "chats/messages", messages: @messages %>
+<input type="hidden" name="history" value="<%= json_escape(@messages.to_json) %>" data-librarian-chat-target="history">

@@ -1,4 +1,7 @@
 <% provide(:title, "Books") %>
+<% if logged_in? %>
+<div data-controller="librarian-chat">
+<% end %>
 <div class="mx-auto">
   <section id="top-matter">
     <h1 class="font-semibold text-2xl leading-tight tracking-tight text-slate-800">Welcome to the Library</h1>
@@ -29,11 +32,7 @@
     <% end %>
     <div class="basis-1/4 min-h-12 md:max-w-64 flex flex-row md:flex-col justify-end gap-2">
       <% if logged_in? %>
-      <button id="ai-chat" class="basis-full py-2 md:py-0 border border-solid rounded-md text-xs md:text-sm font-semibold text-slate-600 shadow-sm border-green-600 hover:border-green-800 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-green-600" disabled>Chat with Librarian</button>
-      <% else %>
-      <button id="ai-chat" class="basis-full md:basis-12 py-2 md:py-0 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-800" disabled>Chat with Librarian</button>
-      <% end %>
-      <% if logged_in? %>
+      <button id="ai-chat" type="button" class="basis-full py-2 md:py-0 border border-solid rounded-md text-xs md:text-sm font-semibold text-slate-600 shadow-sm border-green-600 hover:border-green-800 cursor-pointer" data-action="librarian-chat#open">Chat with Librarian</button>
       <%= link_to "Add Book", book_path, class: "basis-full p0 rounded-md text-xs md:text-sm font-semibold text-white shadow-sm bg-green-800 hover:bg-green-700 cursor-pointer content-center text-center" %>
       <% end %>
     </div>
@@ -55,3 +54,7 @@
     <%= render "pagination", books: @books, filters: @canonical_query %>
   </section>
 </div>
+<% if logged_in? %>
+  <%= render "chats/panel" %>
+</div>
+<% end %>

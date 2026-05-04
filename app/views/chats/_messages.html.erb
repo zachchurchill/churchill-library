@@ -1,0 +1,11 @@
+<div id="librarian-chat-messages" data-librarian-chat-target="messages" class="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+  <% if messages.present? %>
+    <% messages.each do |message| %>
+      <%= render "chats/message", message: message %>
+    <% end %>
+  <% else %>
+    <div class="rounded-md border border-dashed border-slate-300 bg-slate-50 px-4 py-5 text-sm leading-6 text-slate-600">
+      Ask about owners, authors, genres, counts, or which books are in the library.
+    </div>
+  <% end %>
+</div>

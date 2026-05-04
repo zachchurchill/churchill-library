@@ -32,9 +32,9 @@ module ActiveSupport
       (1..length).map { alphabet.sample }.join
     end
 
-    def with_fake_open_ai_client(embeddings: [], responses: [])
+    def with_fake_open_ai_client(embeddings: [], responses: [], shared: false)
       fake_client = FakeOpenAiClient.new(embeddings: embeddings, responses: responses)
-      OpenAi::ClientFactory.with_client(fake_client) { yield fake_client }
+      OpenAi::ClientFactory.with_client(fake_client, shared: shared) { yield fake_client }
     end
   end
 end
