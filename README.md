@@ -11,7 +11,7 @@ This application is hosted using Heroku and available at
 ## Database Design
 
 Postgresql is used for dev, test & production where the `compose.yml` provides the development & test databases for local development.
-Use `podman-compose up -d` to get the postgres services up prior to development.
+Use `docker compose up -d` to get the postgres services up prior to development.
 
 ```mermaid
 erDiagram
