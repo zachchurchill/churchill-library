@@ -23,11 +23,12 @@ class OpenAiServices
     PROMPT
     resp = create_response(
       parameters: {
-        model: "gpt-4o-mini",
-        input: [{ role: "system", content: system_prompt }, *conversation.messages],
-        temperature: 0.6
+        model: Librarian::ChatService::MODEL,
+        instructions: system_prompt,
+        input: conversation.messages,
+        store: false
       }
     )
-    conversation.add_assistant_message(resp["output_text"] || resp.dig("choices", 0, "message", "content"))
+    conversation.add_assistant_message(OpenAi::ResponseText.extract(resp))
   end
 end

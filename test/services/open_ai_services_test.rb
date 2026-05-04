@@ -77,4 +77,31 @@ class OpenAiServicesTest < ActiveSupport::TestCase
       ], client.calls
     end
   end
+
+  test "compatibility chat uses responses api text output" do
+    response = {
+      "output" => [
+        {
+          "type" => "message",
+          "role" => "assistant",
+          "content" => [
+            { "type" => "output_text", "text" => "Hello from Responses" }
+          ]
+        }
+      ]
+    }
+
+    with_fake_open_ai_client(responses: [response]) do |client|
+      conversation = ChatHelper::Conversation.new
+      conversation.add_user_message("Hi")
+
+      OpenAiServices.new.chat(conversation)
+
+      assert_equal "Hello from Responses", conversation.messages.last[:content]
+      request = client.response_calls.first
+      assert_equal "gpt-5-mini", request[:model]
+      assert_equal false, request[:store]
+      assert_not request.key?(:temperature)
+    end
+  end
 end

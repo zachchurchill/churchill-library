@@ -1,6 +1,86 @@
 module Librarian
   class CatalogTools
     MAX_RESULTS = 25
+    TOOL_DEFINITIONS = [
+      {
+        "type" => "function",
+        "name" => "search_books",
+        "description" => "Search books by title, owner, author, or genre text.",
+        "parameters" => {
+          "type" => "object",
+          "properties" => {
+            "query" => {
+              "type" => "string",
+              "description" => "Search text to match against title, owner, author, or genre."
+            }
+          },
+          "required" => ["query"],
+          "additionalProperties" => false
+        }
+      },
+      {
+        "type" => "function",
+        "name" => "list_books_by_owner",
+        "description" => "List books whose owner name matches the provided text.",
+        "parameters" => {
+          "type" => "object",
+          "properties" => {
+            "owner" => {
+              "type" => "string",
+              "description" => "Owner name to search for."
+            }
+          },
+          "required" => ["owner"],
+          "additionalProperties" => false
+        }
+      },
+      {
+        "type" => "function",
+        "name" => "list_books_by_author",
+        "description" => "List books whose author name matches the provided text.",
+        "parameters" => {
+          "type" => "object",
+          "properties" => {
+            "author" => {
+              "type" => "string",
+              "description" => "Author name to search for."
+            }
+          },
+          "required" => ["author"],
+          "additionalProperties" => false
+        }
+      },
+      {
+        "type" => "function",
+        "name" => "list_books_by_genre",
+        "description" => "List books whose genre name matches the provided text.",
+        "parameters" => {
+          "type" => "object",
+          "properties" => {
+            "genre" => {
+              "type" => "string",
+              "description" => "Genre name to search for."
+            }
+          },
+          "required" => ["genre"],
+          "additionalProperties" => false
+        }
+      },
+      {
+        "type" => "function",
+        "name" => "book_counts",
+        "description" => "Return total books and grouped book counts by owner, author, and genre.",
+        "parameters" => {
+          "type" => "object",
+          "properties" => {},
+          "additionalProperties" => false
+        }
+      }
+    ].freeze
+
+    def self.definitions
+      TOOL_DEFINITIONS
+    end
 
     def call(tool_name, arguments = {})
       case tool_name.to_s
