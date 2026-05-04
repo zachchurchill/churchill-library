@@ -34,7 +34,6 @@ class AddBookTest < ActionDispatch::IntegrationTest
     # arrange
     login
     expected_embedding = (1..256).to_a
-    monkeypatch_openai(:embed, expected_embedding)
     book_info = {
       owner: generate_random_string(12),
       title: generate_random_string(25),
@@ -43,8 +42,10 @@ class AddBookTest < ActionDispatch::IntegrationTest
     }
 
     # act
-    perform_enqueued_jobs do
-      post book_path, params: book_info
+    with_fake_open_ai_client(embeddings: [expected_embedding]) do
+      perform_enqueued_jobs do
+        post book_path, params: book_info
+      end
     end
 
     # assert

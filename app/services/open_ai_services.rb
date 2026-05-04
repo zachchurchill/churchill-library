@@ -1,22 +1,17 @@
-require "openai"
-
 # OpenAI services for LLM-related actions like embedding and chat completion
 class OpenAiServices
   attr_reader :client
 
-  def initialize
-    @client = OpenAI::Client.new(access_token: Rails.application.credentials.api_keys.openai)
+  def initialize(client: OpenAi::ClientFactory.current)
+    @client = client
   end
 
   def embed(content)
-    embedding = @client.embeddings(
-      parameters: {
-        model: "text-embedding-3-small",
-        input: content,
-        dimensions: 256
-      }
-    )
-    embedding.dig("data", 0, "embedding")
+    @client.embed(content)
+  end
+
+  def create_response(parameters:)
+    @client.create_response(parameters: parameters)
   end
 
   def chat(conversation)
@@ -26,13 +21,13 @@ class OpenAiServices
       Users may have queries around what kind of books the owners of these collections own and would be interested in.
       Be helpful, concise and sincere.
     PROMPT
-    resp = @client.chat(
+    resp = create_response(
       parameters: {
         model: "gpt-4o-mini",
-        messages: [{ role: "system", content: system_prompt }, *conversation.messages],
+        input: [{ role: "system", content: system_prompt }, *conversation.messages],
         temperature: 0.6
       }
     )
-    conversation.add_assistant_message(resp.dig("choices", 0, "message", "content"))
+    conversation.add_assistant_message(resp["output_text"] || resp.dig("choices", 0, "message", "content"))
   end
 end
